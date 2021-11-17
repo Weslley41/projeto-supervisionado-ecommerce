@@ -1,0 +1,54 @@
+.produto {
+	display: flex;
+	flex-direction: column;
+	margin-right: 25px;
+	margin-left: 25px;
+	width: 200px;
+	height: 250px;
+	border-radius: 10px;
+	box-shadow: 1px 1px 4px var(--color-shadow);
+	cursor: pointer;
+}
+
+.produto:hover {
+	box-shadow: 1px 1px 4px var(--hover-color-produto);
+}
+
+.imagem-produto img {
+	display: relative;
+	margin: 0;
+	width: 200px;
+	height: 200px;
+	border-radius: 10px 10px 0px 0px;
+}
+
+.produto-descricao {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+}
+
+.nome-produto, .valor-produto {
+	font-size: large;
+	color: var(--font-color-3);
+}
+
+.box-descricao {
+	display: flex;
+	flex-direction: column;
+}
+
+.fav-icon {
+	display: flex;
+	-webkit-appearance: none;
+	background: url("../assets/svg/heart.svg");
+	background-size: cover;
+	width: 40px;
+	height: 40px;
+	cursor: pointer;
+}
+
+.produto .fav-icon:checked {
+	background: url("../assets/svg/heart-check.svg");
+	background-size: cover;
+}

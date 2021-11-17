@@ -1,0 +1,13 @@
+#switch-theme[type='checkbox'] {
+	background: url("../assets/svg/sun.svg");
+	background-size: cover;
+	-webkit-appearance: none;
+	cursor: pointer;
+	transition: ease-in .3s;
+}
+
+#switch-theme:checked[type='checkbox'] {
+	background: url("../assets/svg/moon.svg");
+	background-size: cover;
+	transition: ease-in-out .3s;
+}

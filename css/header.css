@@ -1,0 +1,120 @@
+body {
+	background-color: var(--foreground);
+}
+
+#header {
+	display: block;
+	position: fixed;
+	padding-top: 1%;
+	background-color: var(--background-header);
+	width: 100%;
+	height: auto;
+	z-index: 1;
+}
+
+#title-header {
+	margin-left: 1%;
+	color: var(--font-color-1);
+	font-size: xx-larger;
+	font-family: var(--font);
+}
+
+#form-busca {
+	display: flex;
+	width: 60%;
+}
+
+#busca {
+	position: relative;
+	top: 50%;
+	margin-left: 1%;
+	margin-bottom: 3%;
+	padding-left: 1%;
+	width: 100%;
+	font-size: large;
+	line-height: 30px;
+	border: none;
+	border-radius: 5px 0 0 5px;
+	color: var(--font-color-3);
+	background-color: var(--foreground);
+	font-family: var(--font);
+}
+
+#busca::placeholder {
+	color: var(--font-color-2);
+}
+
+#opcoes-busca {
+	display: flex;
+	flex-direction: row;
+	background-color: var(--foreground);
+	height: 32px;
+	border-radius: 0 5px 5px 0;
+}
+
+#btn-busca {
+	padding: 0;
+	border: none;
+	border-radius: 0 5px 5px 0;
+	width: 30px;
+	height: 32px;
+	cursor: pointer;
+	background-color: var(--foreground);
+}
+
+#btn-busca svg {
+	stroke: var(--font-color-2);
+}
+
+#btn-filtro {
+	width: 30px;
+	height: 32px;
+	cursor: pointer;
+	border: none;
+}
+
+#btn-filtro[type="checkbox"] {
+	-webkit-appearance: none;
+	background-color: var(--font-color-2);
+	-webkit-mask-image: url("../assets/svg/filter.svg");
+	mask-image: url("../assets/svg/filter.svg");
+	background-size: cover;
+}
+
+#btn-filtro:checked[type="checkbox"] {
+	background-color: var(--font-color-2);
+	-webkit-mask-image: url("../assets/svg/filter-check.svg");
+	mask-image: url("../assets/svg/filter-check.svg");
+	background-size: cover;
+}
+
+.icon {
+	fill: var(--font-color-1);
+	stroke: var(--font-color-1);
+	width: 30px;
+	height: 30px;
+}
+
+#opcoes {
+	display: flex;
+	justify-content: space-around;
+	position: absolute;
+	margin-right: 10px;
+	width: 200px;
+	height: 50px;
+	right: 0;
+	top: 40%;
+}
+
+#opcoes label {
+	color: var(--font-color-1);
+	font-family: var(--font);
+}
+
+#box-user {
+	display: flex;
+	width: 50px;
+	height: 50px;
+	flex-direction: column;
+  align-items: center;
+}

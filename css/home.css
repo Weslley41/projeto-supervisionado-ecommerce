@@ -1,0 +1,34 @@
+* {
+	margin: 0;
+	outline: none;
+}
+
+#btn-filtro {
+	display: none;
+}
+
+#pagina {
+	display: flex;
+}
+
+#box-header {
+	width: 100%;
+	height: 17vh;
+}
+
+#box-sidebar-conteudo {
+	display: flex;
+	justify-content: space-between;
+}
+
+#box-sidebar {
+	padding-top: 10px;
+	width: 18%;
+}
+
+#box-conteudo {
+	display: flex;
+	flex-direction: column;
+	padding-top: 10px;
+	width: 80%;
+}

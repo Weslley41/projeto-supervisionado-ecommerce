@@ -1,0 +1,33 @@
+<!-- Barra lateral de Filtros -->
+<div id="sidebar">
+	<h2 class="title">Filtro</h2>
+	<hr class="separador">
+	<script src="../js/menu_categoria.js"></script>
+	<form id="form-sidebar" action="" method="get">
+		<button type="submit" id="salvar-filtros">Salvar filtros</button>
+		<!-- Estrutura Categoria -->
+		<span class="box-btn-categoria">
+			<input type="radio" class="btn-categoria" name="categoria" onclick="menu_categoria(/* Index */)" value="/* Categoria */">
+			<label for="" class="label-categoria"><!-- Categoria --></label>
+		</span>
+		<!-- Menu de tags da categoria -->
+		<div class="menu-categoria" id="categoria /* +indice */">
+			<!-- Estrutura Tags -->
+			<span class="box-btn-tag">
+				<input type="checkbox" name="tag" class="btn-tag" id="tag" value="/* Tag */">
+				<label class="label-tag"><!-- Tag --></label>
+			</span>
+
+		</div>
+	</form>
+</div>
+
+<!-- Arquivos referentes
+	JS:
+		- menu_categoria.js
+
+	CSS:
+		- sidebar.css
+		- btn-categoria.css
+		- btn-tag.css
+-->

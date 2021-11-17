@@ -1,0 +1,34 @@
+#sidebar {
+	display: block;
+	flex-direction: column;
+	position: fixed;
+	color: var(--font-color-3);
+	width: 15%;
+}
+
+.title {
+	color: var(--font-color-3);
+	margin: 10px 0px 5px 20px;
+}
+
+.menu-categoria {
+	/* display: flex; */
+	/* position: fixed; */
+	flex-direction: column;
+}
+
+.menu-categoria {
+	display: none;
+}
+
+#btn-salvar-filtros {
+	background-color: var(--background-header);
+	color: var(--font-color-1);
+	width: 90%;
+	padding: 10px;
+	border: none;
+	border-radius: 5px;
+	margin: 10px;
+	font-size: calc(60% + 0.4em);
+	cursor: pointer;
+}

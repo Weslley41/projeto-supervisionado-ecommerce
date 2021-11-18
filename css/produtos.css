@@ -11,7 +11,7 @@
 }
 
 .produto:hover {
-	box-shadow: 1px 1px 4px var(--hover-color-produto);
+	box-shadow: 1px 1px 4px var(--primary-color); /* 3 */
 }
 
 .imagem-produto img {
@@ -20,6 +20,7 @@
 	width: 200px;
 	height: 200px;
 	border-radius: 10px 10px 0px 0px;
+	pointer-events: none;
 }
 
 .produto-descricao {

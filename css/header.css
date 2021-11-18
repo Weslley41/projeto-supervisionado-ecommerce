@@ -1,12 +1,12 @@
 body {
-	background-color: var(--foreground);
+	background-color: var(--secondary-color);
 }
 
 #header {
 	display: block;
 	position: fixed;
 	padding-top: 1%;
-	background-color: var(--background-header);
+	background-color: var(--primary-color); /* 1 */
 	width: 100%;
 	height: auto;
 	z-index: 1;
@@ -36,7 +36,7 @@ body {
 	border: none;
 	border-radius: 5px 0 0 5px;
 	color: var(--font-color-3);
-	background-color: var(--foreground);
+	background-color: var(--secondary-color);
 	font-family: var(--font);
 }
 
@@ -47,7 +47,7 @@ body {
 #opcoes-busca {
 	display: flex;
 	flex-direction: row;
-	background-color: var(--foreground);
+	background-color: var(--secondary-color);
 	height: 32px;
 	border-radius: 0 5px 5px 0;
 }
@@ -59,7 +59,7 @@ body {
 	width: 30px;
 	height: 32px;
 	cursor: pointer;
-	background-color: var(--foreground);
+	background-color: var(--secondary-color);
 }
 
 #btn-busca svg {

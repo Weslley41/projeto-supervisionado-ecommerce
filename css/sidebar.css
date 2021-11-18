@@ -12,8 +12,6 @@
 }
 
 .menu-categoria {
-	/* display: flex; */
-	/* position: fixed; */
 	flex-direction: column;
 }
 
@@ -22,7 +20,7 @@
 }
 
 #btn-salvar-filtros {
-	background-color: var(--background-header);
+	background-color: var(--primary-color); /* 1 */
 	color: var(--font-color-1);
 	width: 90%;
 	padding: 10px;

@@ -22,18 +22,9 @@
 </head>
 <body>
 	<?php
-		echo '<div id="box-header">';
 		include_once('../html/hard_coded/header.html');
-		echo '</div>';
-
-		echo '<div id="box-sidebar-conteudo">';
-		echo '<div id="box-sidebar">';
 		include_once('../html/hard_coded/sidebar.html');
-		echo '</div>';
-
-		echo '<div id="box-conteudo">';
 		include_once('../html/hard_coded/busca.html');
-		echo '</div></div>';
 	?>
 </body>
 </html>

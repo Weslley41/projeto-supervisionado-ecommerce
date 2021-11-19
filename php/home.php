@@ -20,24 +20,10 @@
 </head>
 <body>
 	<?php
-		echo '<div id="box-header">';
 		include_once('../html/hard_coded/header.html');
-		echo '</div>';
-
-		echo '<div id="box-sidebar-conteudo">';
-		echo '<div id="box-sidebar">';
 		include_once('../html/hard_coded/sidebar.html');
-		echo '</div>';
-
-		echo '<div id="box-conteudo">';
-		echo '<h2 class="title">Novidades</h2>';
-		echo '<hr class="separator">';
 		include_once('../html/hard_coded/novidades.html');
-
-		echo '<h2 class="title">Destaques</h2>';
-		echo '<hr class="separator">';
 		include_once('../html/hard_coded/destaques.html');
-		echo '</div></div>';
 	?>
 	<script src="../js/scroll.js"></script>
 </body>

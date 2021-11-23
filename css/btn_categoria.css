@@ -31,14 +31,14 @@
   display: flex;
   width: 25px;
   height: 25px;
-  background-color: var(--font-color-3);
+  background-color: var(--color-3);
   -webkit-mask-image: url("../assets/svg/plus-circle.svg");
   mask-image: url("../assets/svg/plus-circle.svg");
   background-size: cover;
 }
 
 .btn-categoria:checked::before {
-  background-color: var(--font-color-1);
+  background-color: var(--color-1);
   -webkit-mask-image: url("../assets/svg/minus-circle.svg");
   mask-image: url("../assets/svg/minus-circle.svg");
   background-size: cover;
@@ -53,5 +53,5 @@
 }
 
 .btn-categoria:checked ~ .label-categoria {
-  color: var(--font-color-1);
+  color: var(--color-1);
 }

@@ -14,7 +14,7 @@ body {
 
 #title-header {
 	margin-left: 1%;
-	color: var(--font-color-1);
+	color: var(--color-1);
 	font-size: xx-larger;
 	font-family: var(--font);
 }
@@ -35,13 +35,13 @@ body {
 	line-height: 30px;
 	border: none;
 	border-radius: 5px 0 0 5px;
-	color: var(--font-color-3);
+	color: var(--color-3);
 	background-color: var(--secondary-color);
 	font-family: var(--font);
 }
 
 #busca::placeholder {
-	color: var(--font-color-2);
+	color: var(--color-2);
 }
 
 #opcoes-busca {
@@ -63,7 +63,7 @@ body {
 }
 
 #btn-busca svg {
-	stroke: var(--font-color-2);
+	stroke: var(--color-2);
 }
 
 #btn-filtro {
@@ -75,22 +75,22 @@ body {
 
 #btn-filtro[type="checkbox"] {
 	-webkit-appearance: none;
-	background-color: var(--font-color-2);
+	background-color: var(--color-2);
 	-webkit-mask-image: url("../assets/svg/filter.svg");
 	mask-image: url("../assets/svg/filter.svg");
 	background-size: cover;
 }
 
 #btn-filtro:checked[type="checkbox"] {
-	background-color: var(--font-color-2);
+	background-color: var(--color-2);
 	-webkit-mask-image: url("../assets/svg/filter-check.svg");
 	mask-image: url("../assets/svg/filter-check.svg");
 	background-size: cover;
 }
 
 .icon {
-	fill: var(--font-color-1);
-	stroke: var(--font-color-1);
+	fill: var(--color-1);
+	stroke: var(--color-1);
 	width: 30px;
 	height: 30px;
 }
@@ -107,7 +107,7 @@ body {
 }
 
 #opcoes label {
-	color: var(--font-color-1);
+	color: var(--color-1);
 	font-family: var(--font);
 }
 

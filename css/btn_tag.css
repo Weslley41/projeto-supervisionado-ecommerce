@@ -18,7 +18,7 @@
   justify-content: flex-end;
   align-items: center;
   background-color: var(--secondary-color);
-  color: var(--font-color-3);
+  color: var(--color-3);
   width: 90%;
   height: 100%;
   margin: 5px 0;
@@ -27,13 +27,8 @@
   padding: 0 15px;
 }
 
-.btn-tag:checked {
-  /* background-color: var(--primary-color); */
-  background-color: var(--checked-tag);
-}
-
 .btn-tag:checked ~ .label-tag {
-  color: var(--font-color-4); /* 2 */
+  color: var(--tertiary-color);
 }
 
 .btn-tag::before {
@@ -41,14 +36,14 @@
   display: flex;
   width: 25px;
   height: 25px;
-  background-color: var(--font-color-3);
+  background-color: var(--color-3);
   -webkit-mask-image: url("../assets/svg/square.svg");
   mask-image: url("../assets/svg/square.svg");
   background-size: cover;
 }
 
 .btn-tag:checked::before {
-  background-color: var(--font-color-4); /* 2 */
+  background-color: var(--tertiary-color);
   -webkit-mask-image: url("../assets/svg/check-square.svg");
   mask-image: url("../assets/svg/check-square.svg");
   background-size: cover;

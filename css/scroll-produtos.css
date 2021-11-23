@@ -22,7 +22,7 @@
 	align-items: center;
 	justify-content: center;
 	background-color: var(--primary-color);
-	stroke: var(--font-color-1);
+	stroke: var(--color-1);
 	width: 50px;
 	height: 50px;
 	border-radius: 50%;

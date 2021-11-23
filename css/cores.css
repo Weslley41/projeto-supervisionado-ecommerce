@@ -1,21 +1,20 @@
 :root {
 	--primary-color: #097d1c;
 	--secondary-color: #f8f8f8;
-  --checked-categoria: #4cad4a;
-  --checked-tag: #e9e9e9;
+	--tertiary-color: #097d1c;	/* Sempre verde */
 	--color-shadow: #28282860;
 	--font: 'Rowdies', cursive;
-	--font-color-1: #f8f8f8;
-	--font-color-2: #097d1c90;
-	--font-color-3: #282828;
-	--font-color-4: #282828;
+	--color-1: #f8f8f8;		/* Sempre branco */
+	--color-2: #097d1c90;
+	--color-3: #282828;
+	--color-4: #282828;		/* Sempre preto */
+	--color-5: #e9e9e9;
 }
 
 .dark_mode:root {
 	--primary-color: #282828;
 	--secondary-color: #000000;
-  --checked-categoria: #505050;
 	--color-shadow: #f8f8f860;
-	--font-color-2: #f8f8f890;
-	--font-color-3: #f8f8f8;
+	--color-2: #f8f8f890;
+	--color-3: #f8f8f8;
 }

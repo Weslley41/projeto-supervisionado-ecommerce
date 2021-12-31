@@ -1,0 +1,155 @@
+table {
+	background-color: var(--bg-table-header);
+	border-collapse: collapse;
+}
+
+thead {
+	background-color: var(--bg-table-header);
+}
+
+thead th {
+	color: var(--color-text-table-header);
+}
+
+tbody tr:nth-child(odd) {
+	background-color: var(--bg-table-1);
+	color: var(--color-text-table-body);
+}
+
+tbody tr:nth-child(even) {
+	background-color: var(--bg-table-2);
+	color: var(--color-text-table-body);
+}
+
+th {
+	padding: 10px;
+}
+
+td {
+	padding: 10px;
+}
+
+tbody tr:hover {
+	background-color: var(--table-hover);
+	color: var(--color-4);
+}
+
+/* Cabeçalho tabela */
+
+#cabecalho-tabela {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background-color: var(--bg-table-header);
+	color: var(--color-text-table-header);
+	border-radius: 10px 10px 0 0;
+	padding-top: 5px;
+	font-family: var(--font);
+}
+
+#titulo-tabela {
+	width: 30%;
+	margin-left: 20px;
+	font-size: 20px;
+}
+
+#form-busca {
+	width: 40%;
+}
+
+#form-busca form {
+	display: flex;
+	align-items: center;
+	width: 100%;
+}
+
+#btn-busca {
+	width: 30px;
+	height: 37px;
+	border-radius: 0 10px 10px 0;
+}
+
+#btn-novo {
+	width: 20%;
+}
+
+#btn-novo button {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	border: none;
+	width: 100%;
+	height: 100%;
+	padding: 0 25%;
+	justify-content: space-between;
+	background: none;
+	color: var(--color-text-table-header);
+	font-family: var(--font);
+	font-size: 15px;
+	cursor: pointer;
+}
+
+.busca-tabela {
+	width: calc(100% - 50px);
+	padding: 10px 0;
+	padding-left: 20px;
+	border: none;
+	border-radius: 10px 0 0 10px;
+	font-size: 14px;
+	font-family: var(--font);
+	background-color: var(--secondary-color);
+}
+
+.busca-tabela::placeholder {
+	color: var(--color-2);
+}
+
+/* Colunas tabela */
+
+#coluna-id {
+	width: 5%;
+	text-align: center;
+}
+
+#coluna-nome {
+	width: auto;
+	text-align: left;
+}
+
+#coluna-estoque {
+	width: 5%;
+	text-align: center;
+}
+
+#coluna-visitas {
+	width: 10%;
+	text-align: center;
+}
+
+#coluna-valor {
+	width: 10%;
+	text-align: left;
+	padding-left: 20px;
+}
+
+#coluna-categoria {
+	width: 10%;
+	text-align: left;
+}
+
+#coluna-tag {
+	width: 10%;
+	text-align: left;
+}
+
+#coluna-postagem {
+	width: 10%;
+	text-align: center;
+}
+
+.coluna-acoes {
+	width: 5%;
+	padding: 5px;
+	text-align: center;
+	cursor: pointer;
+}

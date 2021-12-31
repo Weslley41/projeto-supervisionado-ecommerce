@@ -1,0 +1,50 @@
+* {
+	margin: 0;
+	padding: 0;
+	outline: none;
+}
+
+#tabela {
+	display: flex;
+	flex-direction: column;
+	width: 90%;
+	height: 470px;
+	margin: 10px 5%;
+	background-color: var(--bg-table-2);
+	border-radius: 10px;
+	box-shadow: 0 0 10px var(--color-shadow);
+}
+
+#paginas {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 5px;
+}
+
+#paginas form {
+	display: flex;
+}
+
+#paginas {
+	display: flex;
+}
+
+.controlador-paginas {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 40px;
+	height: 40px;
+	margin: 5px 5px;
+	border: none;
+	border-radius: 5px;
+	background-color: var(--primary-color);
+	color: var(--color-1);
+	cursor: pointer;
+}
+
+.numero-pagina {
+	font-size: calc(60% + .5rem);
+	cursor: pointer;
+}

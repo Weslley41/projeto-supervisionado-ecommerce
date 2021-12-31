@@ -45,13 +45,6 @@
 	background-color: var(--secondary-color);
 }
 
-.box-controlador-paginas {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	margin: 20px;
-}
-
 .controlador-paginas {
 	display: flex;
 	justify-content: center;
@@ -70,4 +63,8 @@
 	opacity: 0.6;
 	font-size: calc(60% + .5rem);
 	cursor: pointer;
+}
+
+#paginas {
+	display: flex;
 }

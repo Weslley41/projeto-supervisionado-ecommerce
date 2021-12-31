@@ -17,14 +17,13 @@ function scrollProd(x, tipo) {
 function blockButton(element) {
   element = document.querySelector(element)
   element.style.pointerEvents = 'none'
+  element.disabled = true
   element.style.opacity = '0.5'
 }
 
 function unblockButton(element) {
   element = document.querySelector(element)
   element.style.pointerEvents = 'auto'
+  element.disabled = false
   element.style.opacity = '1'
 }
-
-scrollProd(0, 'novidades')
-scrollProd(0, 'destaques')

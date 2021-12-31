@@ -20,7 +20,7 @@
 	width: 200px;
 	height: 200px;
 	border-radius: 10px 10px 0px 0px;
-	pointer-events: none;
+	user-select: none;
 }
 
 .produto-descricao {
@@ -31,12 +31,15 @@
 
 .nome-produto, .valor-produto {
 	font-size: large;
+	overflow: hidden;
+	white-space:nowrap;
 	color: var(--color-3);
 }
 
 .box-descricao {
 	display: flex;
 	flex-direction: column;
+	width: 140px;
 }
 
 .fav-icon {

@@ -12,6 +12,11 @@ body {
 	z-index: 1;
 }
 
+a, a:hover, a:focus, a:active {
+	text-decoration: none;
+	color: var(--color-1);
+}
+
 #title-header {
 	margin-left: 1%;
 	color: var(--color-1);

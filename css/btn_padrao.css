@@ -1,0 +1,27 @@
+.btn-padrao, .btn-padrao[type="submit"] {
+	background-color: var(--tertiary-color);
+	color: var(--color-5);
+	font-family: var(--font);
+	font-size: 16px;
+	width: 40%;
+	height: 50px;
+	border: none;
+	outline: none;
+	border-radius: 5px;
+	margin-bottom: 10px;
+	cursor: pointer;
+}
+
+.btn-padrao[type="reset"], #btn-cancelar {
+	background-color: var(--color-6);
+	color: var(--color-5);
+	font-family: var(--font);
+	font-size: 16px;
+	width: 40%;
+	height: 50px;
+	border: none;
+	outline: none;
+	border-radius: 5px;
+	margin-bottom: 10px;
+	cursor: pointer;
+}

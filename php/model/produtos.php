@@ -67,5 +67,22 @@
 			$update = $this->conexao->prepare($sql);
 			$update->execute($parametros);
 		}
+
+		function excluir($id) {
+			$sqlProdutos = "DELETE FROM produtos WHERE id = ?";
+			$sqlImagens = "DELETE FROM imagens WHERE id_produto = ?";
+			$sqlRelacionamento = "DELETE FROM relacionamento WHERE id_produto = ?";
+
+			$prepareProdutos = $this->conexao->prepare($sqlProdutos);
+			$prepareProdutos->bindParam(1, $id);
+			$prepareImagens = $this->conexao->prepare($sqlImagens);
+			$prepareImagens->bindParam(1, $id);
+			$prepareRelacionamento = $this->conexao->prepare($sqlRelacionamento);
+			$prepareRelacionamento->bindParam(1, $id);
+
+			$prepareProdutos->execute();
+			$prepareImagens->execute();
+			$prepareRelacionamento->execute();
+		}
 	}
 ?>

@@ -14,8 +14,13 @@
 	<link rel="stylesheet" href="../../../css/lista_produtos.css">
 	<link rel="stylesheet" href="../../../css/switch_theme.css">
 	<link rel="stylesheet" href="../../../css/tabela.css">
+	<link rel="stylesheet" href="../../../css/btn_padrao.css">
+	<link rel="stylesheet" href="../../../css/popup.css">
+	<!-- JS -->
 	<script src="../../../js/criarTabela.js"></script>
 	<script src="../../../js/controladorPaginas.js"></script>
+	<script src="../../../js/excluirProduto.js"></script>
+	<script src="../../../js/popup.js"></script>
 </head>
 <body>
 	<?php

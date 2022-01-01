@@ -17,12 +17,14 @@ function paginaNovoProduto() {
 	form.enctype = 'multipart/form-data';
 	let inputNome = document.createElement('input');
 	inputNome.name = 'nome';
+	inputNome.id = 'input-nome';
 	inputNome.placeholder = 'Nome do produto';
 	form.appendChild(inputNome);
 	let duasColunas1 = document.createElement('span');
 	duasColunas1.className = 'duas-colunas';
 	let inputValor = document.createElement('input');
 	inputValor.name = 'valor';
+	inputValor.id = 'input-valor';
 	inputValor.placeholder = 'Valor';
 	duasColunas1.appendChild(inputValor);
 	let inputCategoria = document.createElement('select');
@@ -34,6 +36,7 @@ function paginaNovoProduto() {
 	duasColunas2.className = 'duas-colunas';
 	let inputEstoque = document.createElement('input');
 	inputEstoque.name = 'estoque';
+	inputEstoque.id = 'input-estoque';
 	inputEstoque.placeholder = 'Estoque';
 	duasColunas2.appendChild(inputEstoque);
 	let inputTags = document.createElement('select');
@@ -95,6 +98,7 @@ function insereCategorias() {
 		response.categorias.forEach(categoria => {
 			let nome = categoria.nome[0].toUpperCase() + categoria.nome.slice(1).toLowerCase();
 			let option = document.createElement('option');
+			option.id = 'c' + categoria.id;
 			option.value = categoria.id;
 			option.innerText = nome;
 			select.appendChild(option);
@@ -118,6 +122,7 @@ function insereTags() {
 		response.tags.forEach(tag => {
 			let nome = tag.nome[0].toUpperCase() + tag.nome.slice(1).toLowerCase();
 			let option = document.createElement('option');
+			option.id = 't'+ tag.id;
 			option.value = tag.id;
 			option.innerText = nome;
 			select.appendChild(option);
@@ -129,7 +134,6 @@ function insereTags() {
 }
 
 function previewImagens() {
-	console.log(index_img);
 	if (document.getElementById('box-imagens') == null) {
 		let content = document.querySelector('.content');
 		let boxImagens = document.createElement('div');

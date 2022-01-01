@@ -28,7 +28,7 @@
 		}
 
 		function produtoPorID($parametros) {
-			$sql = "SELECT prod.id, prod.nome, prod.valor FROM produtos prod WHERE prod.id = :id";
+			$sql = "SELECT prod.id, prod.nome, prod.valor, prod.estoque FROM produtos prod WHERE prod.id = :id";
 
 			$pesquisa = $this->conexao->prepare($sql);
 			$pesquisa->execute($parametros);

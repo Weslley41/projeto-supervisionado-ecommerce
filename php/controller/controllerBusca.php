@@ -256,12 +256,14 @@
 		}
 
 		private function produtoPorIdJSON($resultado) {
-			$parametros = array($resultado[0]['id'], 10);
-			$json = '{ "produto": ' . json_encode($resultado[0]);
-			$json[-1] = ',';
-			$imagens = $this->buscaImagens($parametros) . '}';
-			$imagens[0] = ' ';
-			$json .= $imagens;
+			$produto = $resultado[0];
+			$parametros = array($produto['id'], 10);
+			$imagens = $this->pesquisa->imagens($parametros);
+			$categoria = $this->pesquisa->categoriaPorProdID($produto['id']);
+			$tags = $this->pesquisa->tagsPorProdID($produto['id']);
+
+			$produtoCompleto = array_merge($produto, array('categoria' => $categoria, 'tags' => $tags, 'imagens' => $imagens));
+			$json = '{"produto":' . json_encode($produtoCompleto) . '}';
 
 			return $json;
 		}

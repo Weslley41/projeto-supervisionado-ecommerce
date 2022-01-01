@@ -50,5 +50,22 @@
 				}
 			}
 		}
+
+		function atualizaProduto() {
+			// Coletando as informações do formulário
+			$id = $_GET['id'];
+			$nome = $_POST['nome'].trim(' ');
+			$valor = $_POST['valor'].trim(' ');
+			$estoque = $_POST['estoque'].trim(' ');
+			$parametros = array($nome, $valor, $estoque, $id);
+			// $categoria = $_POST['categoria'];
+			// $tags = $_POST['tag'];
+			// $thumb_image = $_FILES['thumb-image']['tmp_name'];
+			// $images = $_FILES['images']['tmp_name'];
+
+			$sql = "UPDATE produtos SET nome = ?, valor = ?, estoque = ? WHERE id = ?";
+			$update = $this->conexao->prepare($sql);
+			$update->execute($parametros);
+		}
 	}
 ?>

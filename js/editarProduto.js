@@ -26,6 +26,6 @@ function editarProduto() {
 		document.getElementById('input-imgs')
 	}
 
-	busca.open('GET', '/ecommerce/php/view/requests/buscaProduto.php?id=' + id_prod, true);
+	busca.open('GET', '/ecommerce/php/view/requests/buscaProduto.php?edicao=1&id=' + id_prod, true);
 	busca.send();
 }

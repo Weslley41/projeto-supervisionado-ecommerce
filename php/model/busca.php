@@ -28,10 +28,25 @@
 		}
 
 		function produtoPorID($parametros) {
-			$sql = "SELECT prod.id, prod.nome, prod.valor, prod.estoque FROM produtos prod WHERE prod.id = :id";
+			$sql = "SELECT prod.id, prod.nome, prod.valor FROM produtos prod WHERE prod.id = :id";
 
 			$pesquisa = $this->conexao->prepare($sql);
 			$pesquisa->execute($parametros);
+
+			$visitas_add = "UPDATE produtos set visitas = visitas + 1 WHERE id = ?";
+			$adicao = $this->conexao->prepare($visitas_add);
+			$adicao->bindParam(1, $parametros['id']);
+			$adicao->execute();
+
+			return $pesquisa->fetchAll();
+		}
+
+		function produtoParaEdicao($parametros) {
+			$sql = "SELECT prod.id, prod.nome, prod.valor, prod.estoque FROM produtos prod WHERE prod.id = :id";
+
+			$pesquisa = $this->conexao->prepare($sql);
+			$pesquisa->bindParam(':id', $parametros['id']);
+			$pesquisa->execute();
 
 			return $pesquisa->fetchAll();
 		}

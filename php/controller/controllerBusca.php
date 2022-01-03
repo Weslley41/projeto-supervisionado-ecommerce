@@ -23,7 +23,10 @@
 			);
 
 			if (in_array("id", $param_keys)) {
-				$produto = $this->pesquisa->produtoPorID($parametros);
+				if (in_array("edicao", $param_keys))
+					$produto = $this->pesquisa->produtoParaEdicao($parametros);
+				else
+					$produto = $this->pesquisa->produtoPorID($parametros);
 
 				return $this->produtoPorIdJSON($produto);
 			} else

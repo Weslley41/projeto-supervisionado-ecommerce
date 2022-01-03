@@ -147,7 +147,7 @@ tbody tr:hover {
 	text-align: center;
 }
 
-.coluna-acoes {
+#coluna-editar, #coluna-excluir {
 	width: 5%;
 	padding: 5px;
 	text-align: center;

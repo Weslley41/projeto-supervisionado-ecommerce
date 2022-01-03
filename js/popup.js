@@ -15,7 +15,7 @@ function criarPopup(textoTitulo, textoConteudo) {
 	titulo.innerText = textoTitulo;
 	let conteudo = document.createElement('div');
 	conteudo.id = 'popup-conteudo';
-	conteudo.innerText = textoConteudo;
+	conteudo.innerHTML = textoConteudo;
 	let boxBotoes = document.createElement('div');
 	boxBotoes.id = 'popup-boxBotoes';
 

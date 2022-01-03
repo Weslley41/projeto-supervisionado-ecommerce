@@ -1,6 +1,6 @@
 function popupExcluirProduto(id, nome) {
 	let titulo = 'Você tem certeza?';
-	let conteudo = 'Excluir o produto:\nID: ' + id + '\nNome: ' + nome;
+	let conteudo = 'Excluir o produto:<br>ID: ' + id + '<br>Nome: ' + nome;
 
 	criarPopup(titulo, conteudo);
 	let btnCancelar = ['Cancelar', 'btn-cancelar', 'fecharPopup()'];

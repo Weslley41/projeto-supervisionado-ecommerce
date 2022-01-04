@@ -7,8 +7,15 @@
 	$parametros = $_GET;
 
 	$categoria = array('categoria', 'categorias');
-	if (in_array($parametros['tipo'], $categoria))
-		echo $pesquisa->buscaCategorias();
-	else
-		echo $pesquisa->buscaTags();
+	if (@$_GET['show_counts']) {
+		if (in_array($parametros['tipo'], $categoria))
+			echo $pesquisa->buscaCategorias(true);
+		else
+			echo $pesquisa->buscaTags(true);
+	} else {
+		if (in_array($parametros['tipo'], $categoria))
+			echo $pesquisa->buscaCategorias();
+		else
+			echo $pesquisa->buscaTags();
+	}
 ?>

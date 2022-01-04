@@ -47,12 +47,12 @@ function criarTabelaUnica(titulo) {
 		let trTitulo = document.createElement('tr');
 		let thTitulo = document.createElement('th');
 		thTitulo.innerText = titulo;
-		thTitulo.colSpan = 4;
+		thTitulo.colSpan = 5;
 		trTitulo.appendChild(thTitulo)
 		thead.appendChild(trTitulo);
 
 		let trLabel = document.createElement('tr');
-		let labels = ['ID', 'Nome', 'Editar', 'Excluir'];
+		let labels = ['ID', 'Nome', 'Usos', 'Editar', 'Excluir'];
 		labels.forEach(label => {
 			let thLabel = document.createElement('th');
 			thLabel.innerText = label;
@@ -78,14 +78,13 @@ function criarTabelaUnica(titulo) {
 		response = JSON.parse(dados.responseText);
 		response[titulo].forEach(element => {
 			let tr = document.createElement('tr');
-			let td_id = document.createElement('td');
-			td_id.innerText = element.id;
-			td_id.id = 'coluna-id'
-			tr.appendChild(td_id);
-			let td_nome = document.createElement('td');
-			td_nome.innerText = element.nome;
-			td_nome.id = 'coluna-nome'
-			tr.appendChild(td_nome);
+			let colunas = ['id', 'nome', 'usos'];
+			colunas.forEach(coluna => {
+				let td = document.createElement('td');
+				td.innerText = element[coluna];
+				td.id = 'coluna-' + coluna;
+				tr.appendChild(td);
+			});
 
 			let editar = document.createElement('td');
 			editar.id = 'coluna-editar';
@@ -102,6 +101,6 @@ function criarTabelaUnica(titulo) {
 		});
 	}
 
-	dados.open('GET', '/ecommerce/php/view/requests/buscaCategoriasTags.php?tipo=' + titulo, true);
+	dados.open('GET', '/ecommerce/php/view/requests/buscaCategoriasTags.php?show_counts=true&tipo=' + titulo, true);
 	dados.send();
 }

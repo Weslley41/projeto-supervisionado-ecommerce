@@ -42,8 +42,8 @@
 	width: 70%;
 }
 
-#coluna-editar, #coluna-excluir {
-	width: 20%;
+#coluna-usos, #coluna-editar, #coluna-excluir {
+	width: 10%;
 	padding: 5px;
 	text-align: center;
 	cursor: pointer;

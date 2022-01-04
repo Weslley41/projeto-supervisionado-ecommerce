@@ -188,16 +188,16 @@
 			return $this->toJSON('imagens', $resultado);
 		}
 
-		function buscaCategorias() {
+		function buscaCategorias($show_count=false) {
 			$categorias = $this->pesquisa->categorias();
 
-			return $this->toJSON('categorias', $categorias);
+			return $this->toJSON('categorias', $categorias, $show_count);
 		}
 
-		function buscaTags() {
+		function buscaTags($show_count=false) {
 			$tags = $this->pesquisa->tags();
 
-			return $this->toJSON('tags', $tags);
+			return $this->toJSON('tags', $tags, $show_count);
 		}
 
 		function filtrosJSON($parametros) {
@@ -271,9 +271,17 @@
 			return $json;
 		}
 
-		private function toJSON($rotulo, $resultado) {
+		private function toJSON($rotulo, $resultado, $show_count=false) {
 			$json = '{"' . $rotulo .'":[';
 			foreach($resultado as $item) {
+				if ($show_count) {
+					if ($rotulo == 'categorias')
+						$count = $this->pesquisa->qntdProdutoPorCategoria(array($item['id']));
+					else
+						$count = $this->pesquisa->qntdProdutoPorTag('?', array($item['id']));
+					
+					$item = array_merge($item, array('usos' => $count));
+				}
 				$json .= json_encode($item) . ',';
 			}
 			$json[-1] = "]";

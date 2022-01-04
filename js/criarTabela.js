@@ -45,8 +45,8 @@ function criar_tabela() {
 		let labels = document.createElement('tr');
 		labels.id = 'labels';
 		let lista_labels = [
-			'ID', 'Nome', 'Categoria', 'Tag',
-			'Estoque', 'Visitas', 'Valor', 'Postagem'
+			'ID', 'Nome', 'Categoria', 'Tag', 'Estoque',
+			'Visitas', 'Valor', 'Postagem', 'Editar', 'Excluir'
 		];
 		lista_labels.forEach(label => {
 			let th = document.createElement('th');
@@ -54,14 +54,6 @@ function criar_tabela() {
 			th.innerText = label;
 			labels.appendChild(th)
 		});
-		let editar = document.createElement('th');
-		editar.id = 'coluna-editar';
-		editar.innerText = 'Editar';
-		labels.appendChild(editar);
-		let excluir = document.createElement('th');
-		excluir.id = 'coluna-excluir';
-		excluir.innerText = 'Excluir';
-		labels.appendChild(excluir);
 
 		thead.appendChild(labels);
 		table.appendChild(thead);

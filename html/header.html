@@ -4,7 +4,7 @@
 		<form action="/ecommerce/php/view/user/busca.php" name="form-filtros" method="get" id="form-busca">
 			<input type="text" name="busca" id="busca" placeholder="Pesquise aqui">
 			<span id="opcoes-busca">
-				<input type="checkbox" name="filtro" id="btn-filtro" onclick="alterar_modo_filtro()">
+				<input type="checkbox" id="btn-filtro" onclick="alterar_modo_filtro()">
 				<button type="submit" id="btn-busca"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></button>
 			</span>
 		</form>
@@ -20,3 +20,5 @@
 		</div>
 	</div>
 </div>
+
+<script> mudaTema(); </script>

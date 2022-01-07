@@ -98,6 +98,7 @@ tbody tr:hover {
 	font-size: 14px;
 	font-family: var(--font);
 	background-color: var(--secondary-color);
+	color: var(--color-3);
 }
 
 .busca-tabela::placeholder {

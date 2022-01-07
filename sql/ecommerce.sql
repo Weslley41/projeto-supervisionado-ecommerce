@@ -24,15 +24,15 @@ CREATE TABLE IF NOT EXISTS imagens (
 CREATE TABLE IF NOT EXISTS produtos (
 	id INT AUTO_INCREMENT PRIMARY KEY,
 	nome VARCHAR(100),
-	visitas INT DEFAULT 0,
+	id_categoria INT,
 	valor FLOAT,
+	visitas INT DEFAULT 0,
 	estoque INT,
 	data_cadastro DATETIME
 );
 
--- Relacionamento entre produtos, categorias e tags
-CREATE TABLE IF NOT EXISTS relacionamento (
+-- Relacionamento entre produtos e tags
+CREATE TABLE IF NOT EXISTS prod_tags (
 	id_produto INT REFERENCES produtos(id),
-	id_categoria INT REFERENCES categorias(id),
 	id_tag INT REFERENCES tags(id)
 );

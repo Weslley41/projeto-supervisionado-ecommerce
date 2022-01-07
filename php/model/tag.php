@@ -26,7 +26,7 @@
 			$exclusao->bindParam(1, $id);
 			$exclusao->execute();
 
-			$sql = "DELETE FROM relacionamento WHERE id_tag = ?";
+			$sql = "DELETE FROM prod_tags WHERE id_tag = ?";
 			$exclusao = $this->conexao->prepare($sql);
 			$exclusao->bindParam(1, $id);
 			$exclusao->execute();

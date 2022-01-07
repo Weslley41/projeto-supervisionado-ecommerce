@@ -16,16 +16,16 @@
 			$images = $_FILES['images']['tmp_name'];
 
 			// Inserindo produto
-			$insercao = $this->conexao->prepare('INSERT INTO produtos(nome, valor, estoque, data_cadastro) VALUES (?, ?, ?, ?)');
-			$parametros = array($nome, $valor, $estoque, date('Y-m-d H-m-s'));
+			$insercao = $this->conexao->prepare('INSERT INTO produtos(nome, id_categoria, valor, estoque, data_cadastro) VALUES (?, ?, ?, ?, ?)');
+			$parametros = array($nome, $categoria, $valor, $estoque, date('Y-m-d H-m-s'));
 			$insercao->execute($parametros);
 
 			// Pegando a ID do produto inserido
 			$id = $this->conexao->lastInsertId();
 			// Criando relacionamento com a categoria/tags
 			foreach ($tags as $tag) {
-				$insercao = $this->conexao->prepare("INSERT INTO relacionamento VALUES (?, ?, ?)");
-				$parametros = array($id, $categoria, $tag);
+				$insercao = $this->conexao->prepare("INSERT INTO prod_tags VALUES (?, ?)");
+				$parametros = array($id, $tag);
 				$insercao->execute($parametros);
 			}
 			// Salvando e inserindo imagens
@@ -57,13 +57,13 @@
 			$nome = $_POST['nome'].trim(' ');
 			$valor = $_POST['valor'].trim(' ');
 			$estoque = $_POST['estoque'].trim(' ');
-			$parametros = array($nome, $valor, $estoque, $id);
-			// $categoria = $_POST['categoria'];
+			$categoria = $_POST['categoria'];
+			$parametros = array($nome, $categoria, $valor, $estoque, $id);
 			// $tags = $_POST['tag'];
 			// $thumb_image = $_FILES['thumb-image']['tmp_name'];
 			// $images = $_FILES['images']['tmp_name'];
 
-			$sql = "UPDATE produtos SET nome = ?, valor = ?, estoque = ? WHERE id = ?";
+			$sql = "UPDATE produtos SET nome = ?, id_categoria = ?, valor = ?, estoque = ? WHERE id = ?";
 			$update = $this->conexao->prepare($sql);
 			$update->execute($parametros);
 		}
@@ -71,7 +71,7 @@
 		function excluir($id) {
 			$sqlProdutos = "DELETE FROM produtos WHERE id = ?";
 			$sqlImagens = "DELETE FROM imagens WHERE id_produto = ?";
-			$sqlRelacionamento = "DELETE FROM relacionamento WHERE id_produto = ?";
+			$sqlRelacionamento = "DELETE FROM prod_tags WHERE id_produto = ?";
 
 			$prepareProdutos = $this->conexao->prepare($sqlProdutos);
 			$prepareProdutos->bindParam(1, $id);
@@ -83,6 +83,11 @@
 			$prepareProdutos->execute();
 			$prepareImagens->execute();
 			$prepareRelacionamento->execute();
+
+			// Exclusão de imagens no disco
+			foreach (glob("../../../assets/produtos/P".$id."_*.jpg") as $filename) {
+				unlink($filename);
+			}
 		}
 	}
 ?>

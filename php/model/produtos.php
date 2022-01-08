@@ -1,8 +1,10 @@
 <?php
+	include_once('../../model/busca.php');
 	class Produtos
 	{
 		function __construct($conexao) {
 			$this->conexao = $conexao;
+			$this->busca = new Busca($conexao);
 		}
 
 		function novoProduto() {
@@ -59,13 +61,35 @@
 			$estoque = $_POST['estoque'].trim(' ');
 			$categoria = $_POST['categoria'];
 			$parametros = array($nome, $categoria, $valor, $estoque, $id);
-			// $tags = $_POST['tag'];
+			$tags = $_POST['tag'];
 			// $thumb_image = $_FILES['thumb-image']['tmp_name'];
 			// $images = $_FILES['images']['tmp_name'];
 
 			$sql = "UPDATE produtos SET nome = ?, id_categoria = ?, valor = ?, estoque = ? WHERE id = ?";
 			$update = $this->conexao->prepare($sql);
 			$update->execute($parametros);
+
+			// Removendo tags que não serão mais usadas
+			$parametros = array_merge(array($id), $tags);
+			$place_tags = implode(',', array_fill(0, count($tags), '?'));
+			$sqlDeleteTags = "DELETE FROM prod_tags WHERE id_produto = ? AND id_tag NOT IN ($place_tags)";
+			$deleteTags = $this->conexao->prepare($sqlDeleteTags);
+			$deleteTags->execute($parametros);
+
+			// Analisando diferença entre tags novas e antigas
+			$tags_antigas = array();
+			$resultado = $this->busca->tagsPorProdID($id);
+			foreach ($resultado as $tag) {
+				array_push($tags_antigas, $tag['id']);
+			}
+			$diff = array_diff($tags, $tags_antigas);
+
+			// Adicionando novas tags
+			foreach ($diff as $tag) {
+				$insercao = $this->conexao->prepare("INSERT INTO prod_tags VALUES (?, ?)");
+				$parametros = array($id, $tag);
+				$insercao->execute($parametros);
+			}
 		}
 
 		function excluir($id) {

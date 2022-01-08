@@ -10,6 +10,6 @@
 	} else if ($_GET['acao'] == 'editar') {
 		$categoria->editar($_GET['id'], $_GET['nome']);
 	} else if ($_GET['acao'] == 'excluir') {
-		$categoria->excluir($_GET['id']);
+		echo $categoria->excluir($_GET['id']);
 	}
 ?>

@@ -1,8 +1,10 @@
 <?php
+	include_once('../../model/busca.php');
 	class Tag
 	{
 		function __construct($conexao) {
 			$this->conexao = $conexao;
+			$this->busca = new Busca($conexao);
 		}
 
 		function cadastrar($nome) {
@@ -21,15 +23,22 @@
 		}
 
 		function excluir($id) {
-			$sql = "DELETE FROM tags WHERE id = ?";
-			$exclusao = $this->conexao->prepare($sql);
-			$exclusao->bindParam(1, $id);
-			$exclusao->execute();
+			$qntd_usos = $this->busca->qntdProdutoPorTag('?', array($id));
+			if ($qntd_usos > 0) {
+				return 'false';
+			} else {
+				$sql = "DELETE FROM tags WHERE id = ?";
+				$exclusao = $this->conexao->prepare($sql);
+				$exclusao->bindParam(1, $id);
+				$exclusao->execute();
 
-			$sql = "DELETE FROM prod_tags WHERE id_tag = ?";
-			$exclusao = $this->conexao->prepare($sql);
-			$exclusao->bindParam(1, $id);
-			$exclusao->execute();
+				$sql = "DELETE FROM prod_tags WHERE id_tag = ?";
+				$exclusao = $this->conexao->prepare($sql);
+				$exclusao->bindParam(1, $id);
+				$exclusao->execute();
+
+				return 'true';
+			}
 		}
 	}
 ?>

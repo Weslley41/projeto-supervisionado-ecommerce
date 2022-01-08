@@ -1,8 +1,10 @@
 <?php
+	include_once('../../model/busca.php');
 	class Categoria
 	{
 		function __construct($conexao) {
 			$this->conexao = $conexao;
+			$this->busca = new Busca($conexao);
 		}
 
 		function cadastrar($nome) {
@@ -21,10 +23,17 @@
 		}
 
 		function excluir($id) {
-			$sql = "DELETE FROM categorias WHERE id = ?";
-			$exclusao = $this->conexao->prepare($sql);
-			$exclusao->bindParam(1, $id);
-			$exclusao->execute();
+			$qntd_usos = $this->busca->qntdProdutoPorCategoria(array($id));
+			if ($qntd_usos > 0) {
+				return 'false';
+			} else {
+				$sql = "DELETE FROM categorias WHERE id = ?";
+				$exclusao = $this->conexao->prepare($sql);
+				$exclusao->bindParam(1, $id);
+				$exclusao->execute();
+
+				return 'true';
+			}
 		}
 	}
 ?>

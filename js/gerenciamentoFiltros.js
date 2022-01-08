@@ -66,12 +66,20 @@ function editarFiltro(id, tipo) {
 }
 
 function excluirFiltro(id, tipo) {
-	let cadastrar = new XMLHttpRequest();
+	cadastrar = new XMLHttpRequest();
+	
+	cadastrar.onreadystatechange = () => {
+		if (cadastrar.responseText == 'false') {
+			fecharPopup();
+			criarPopup('Erro', 'Verifique se não há nenhum produto vinculado à esse filtro antes de tentar apagá-lo.');
+			criarBotoes([['Fechar', 'btn-cancelar', 'fecharPopup()']]);
+		} else {
+			fecharPopup();
+			let titulo = tipo[0].toUpperCase() + tipo.slice(1) + 's';
+			criarTabelaUnica(titulo);
+		}
+	}
 
 	cadastrar.open('GET', '/ecommerce/php/view/requests/gerenciamento_' + tipo + '.php?acao=excluir&id=' + id, true);
 	cadastrar.send();
-
-	fecharPopup();
-	let titulo = tipo[0].toUpperCase() + tipo.slice(1) + 's';
-	criarTabelaUnica(titulo);
 }

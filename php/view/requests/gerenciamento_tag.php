@@ -10,6 +10,6 @@
 	} else if ($_GET['acao'] == 'editar') {
 		$tag->editar($_GET['id'], $_GET['nome']);
 	} else if ($_GET['acao'] == 'excluir') {
-		$tag->excluir($_GET['id']);
+		echo $tag->excluir($_GET['id']);
 	}
 ?>

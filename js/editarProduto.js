@@ -7,7 +7,7 @@ function editarProduto() {
 	document.querySelector('#box-conteudo h1').innerText = 'Atualizar produto';
 	let botoes = document.querySelectorAll('.btn-padrao');
 	botoes[0].innerText = 'Cancelar';
-	botoes[0].setAttribute('onclick', 'window.location.href="lista_produtos.php"');
+	botoes[0].setAttribute('onclick', 'window.history.back()');
 	botoes[1].innerText = 'Atualizar';
 	botoes[1].name = 'btn-atualizar';
 

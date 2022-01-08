@@ -140,7 +140,7 @@
 
 		function tabelaProdutoPorCategoria($parametros) {
 			$sql = "SELECT DISTINCT prod.id, prod.nome, prod.valor, prod.estoque, prod.data_cadastro, prod.visitas
-			FROM produtos prod WHERE prod.id_categoria = ? ORDER BY ? LIMIT ?, 10";
+			FROM produtos prod WHERE prod.id_categoria = ? ORDER BY ? LIMIT ?, 8";
 
 			$pesquisa = $this->conexao->prepare($sql);
 			$pesquisa->execute($parametros);
@@ -152,7 +152,7 @@
 			$sql = "SELECT DISTINCT prod.id, prod.nome, prod.valor, prod.estoque, prod.data_cadastro, prod.visitas
 			FROM produtos prod
 			JOIN prod_tags rel ON prod.id = rel.id_produto
-			AND rel.id_tag IN ($place_tags) ORDER BY ? LIMIT ?, 10";
+			AND rel.id_tag IN ($place_tags) ORDER BY ? LIMIT ?, 8";
 
 			$pesquisa = $this->conexao->prepare($sql);
 			$pesquisa->execute($parametros);

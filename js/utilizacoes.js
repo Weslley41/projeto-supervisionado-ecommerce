@@ -141,10 +141,10 @@ function exibirProdutos() {
 			tr.appendChild(excluir);
 			tbody.appendChild(tr);
 		});
-		criarControlador(response.quantidade, 10, 'exibirProdutos()');
+		criarControlador(response.quantidade, 8, 'exibirProdutos()');
 	}
 
-	corpoTabela.open('GET', '/ecommerce/php/view/requests/buscaProduto.php?tipo=tabela&order=nome0&limite=0&'+tipo+'='+value, true);
+	corpoTabela.open('GET', '/ecommerce/php/view/requests/buscaProduto.php?tipo=tabela&order=nome0&limite=' + pagina * 8 + '&' + tipo + '=' + value, true);
 	corpoTabela.send();
 }
 

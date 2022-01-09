@@ -1,5 +1,7 @@
 function editarProduto() {
 	paginaNovoProduto();
+	previewImagens();
+
 	let url = new URLSearchParams(window.location.search);
 	let id_prod = url.get('id');
 
@@ -22,10 +24,18 @@ function editarProduto() {
 		document.getElementById('input-estoque').value = response.produto.estoque;
 		document.getElementById('c' + response.produto.categoria[0].id).selected = true;
 		response.produto.tags.forEach(tag => document.getElementById('t' + tag.id).selected = true);
-		document.getElementById('input-thumb')
-		document.getElementById('input-imgs')
+		document.getElementById('input-thumb');
+		document.getElementById('input-imgs');
 	}
 
 	busca.open('GET', '/ecommerce/php/view/requests/buscaProduto.php?edicao=1&id=' + id_prod, true);
 	busca.send();
+}
+
+function mudarThumb() {
+	alert('mudarThumb');
+}
+
+function removerImagem() {
+	alert('removerImagem');
 }

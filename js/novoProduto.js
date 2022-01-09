@@ -46,13 +46,15 @@ function paginaNovoProduto() {
 	duasColunas2.appendChild(inputTags);
 	form.appendChild(duasColunas2);
 
-	let inputThumb = document.createElement('input');
-	inputThumb.type = 'file';
-	inputThumb.name = 'thumb-image';
-	inputThumb.accept = '.jpg';
-	inputThumb.id = 'input-thumb';
-	inputThumb.addEventListener('change', previewImagens);
-	form.appendChild(inputThumb);
+	if (!window.location.href.includes('editar')) {
+		let inputThumb = document.createElement('input');
+		inputThumb.type = 'file';
+		inputThumb.name = 'thumb-image';
+		inputThumb.accept = '.jpg';
+		inputThumb.id = 'input-thumb';
+		inputThumb.addEventListener('change', previewImagens);
+		form.appendChild(inputThumb);
+	}
 	let inputImagens = document.createElement('input');
 	inputImagens.type = 'file';
 	inputImagens.name = 'images[]';
@@ -140,6 +142,10 @@ function previewImagens() {
 		boxImagens.id = 'box-imagens';
 		let imagemPreview = document.createElement('img');
 		imagemPreview.id = 'img-preview';
+		let btnAcaoImg = document.createElement('span');
+		btnAcaoImg.className = 'icon';
+		btnAcaoImg.id = 'acao-img';
+		boxImagens.appendChild(btnAcaoImg);
 		boxImagens.appendChild(imagemPreview)
 		
 		let duasColunasBotoes = document.createElement('span');
@@ -161,18 +167,47 @@ function previewImagens() {
 		content.appendChild(boxImagens);
 	}
 
-	let thumb = document.getElementById('input-thumb').files;
-	let imagens = document.getElementById('input-imgs').files;
+	let edicao = window.location.href.includes('editar');
+	if (!edicao) {
+		thumb = document.getElementById('input-thumb').files;
+		imagens = document.getElementById('input-imgs').files;
+		lista_imagens = Array(thumb[0]);
 
-	let lista_imagens = Array(thumb[0]);
-	for (let i = 0; i < imagens.length; i++) {
-		lista_imagens.push(imagens[i]);
+		for (let i = 0; i < imagens.length; i++) {
+			lista_imagens.push(imagens[i]);
+		}
+
+		document.getElementById('box-imagens').style.display = 'flex';
+		let imagemPreview = document.getElementById('img-preview');
+		imagemPreview.src = URL.createObjectURL(lista_imagens[index_img]);
+		controladorBotoes(lista_imagens.length);
+	} else {
+		let url = new URLSearchParams(window.location.search);
+		let id_prod = url.get('id');
+
+		let buscaImagens = new XMLHttpRequest();
+		buscaImagens.onreadystatechange = () => {
+			let imagens = JSON.parse(buscaImagens.responseText);
+			lista_imagens = Array();
+			imagens.imagens.forEach(imagem => {lista_imagens.push(imagem.caminho)});
+
+			document.getElementById('box-imagens').style.display = 'flex';
+			let btnAcaoImg = document.getElementById('acao-img');
+			if (index_img == 0) {
+				btnAcaoImg.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#097d1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>';
+				btnAcaoImg.setAttribute('onclick', 'mudarThumb()');
+			} else {
+				btnAcaoImg.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FF4E4E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>';
+				btnAcaoImg.setAttribute('onclick', 'removerImagem()');
+			}
+			let imagemPreview = document.getElementById('img-preview');
+			imagemPreview.src = lista_imagens[index_img];
+			controladorBotoes(lista_imagens.length);
+		}
+
+		buscaImagens.open('GET', '/ecommerce/php/view/requests/buscaImagens.php?id='+id_prod, true);
+		buscaImagens.send();
 	}
-
-	document.getElementById('box-imagens').style.display = 'flex';
-	let imagemPreview = document.getElementById('img-preview');
-	imagemPreview.src = URL.createObjectURL(lista_imagens[index_img]);
-	controladorBotoes(lista_imagens.length);
 }
 
 function limpaPreview() {

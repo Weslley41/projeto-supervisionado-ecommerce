@@ -4,9 +4,9 @@
 			<h2 class="title">Filtro</h2>
 			<hr class="separador">
 			<script src="../../../js/menu_categoria.js"></script>
-			<form action="/ecommerce/php/view/user/busca.php" id="form-sidebar" name="form-filtros" method="get">
-				<button type="submit" id="btn-salvar-filtros">Salvar filtros</button>
-			</form>
+			<div id="form-sidebar">
+				<button type="submit" id="btn-salvar-filtros" onclick="aplicarFiltro()">Salvar filtros</button>
+			</div>
 		</div>
 	</div>
 	<div id="box-conteudo"></div>

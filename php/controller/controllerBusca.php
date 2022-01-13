@@ -38,8 +38,8 @@
 					$categoria = $parametros['categoria'];
 					if (in_array("tag", $param_keys)) {
 						$tags = $parametros['tag'];
-						$parametros = array_merge(array($categoria), $tags, array("'%$busca%'", $ordenacao, $parametros['limite']));
-						$parametros_qntd = array_merge(array($categoria), $tags, array("'%$busca%'"));
+						$parametros = array_merge(array($categoria), $tags, array("%$busca%", $ordenacao, $parametros['limite']));
+						$parametros_qntd = array_merge(array($categoria), $tags, array("%$busca%"));
 						$place_tags = implode(',', array_fill(0, count($tags), '?'));
 
 						$resultado = $this->pesquisa->produtoPorTagsEnome($place_tags, $parametros);

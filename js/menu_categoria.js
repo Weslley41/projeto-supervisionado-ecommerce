@@ -4,7 +4,7 @@ function menu_categoria(index) {
 
 	if (ultimo_clicado == index && display_menu_clicado == 'flex') {
 		radio.forEach(element => {
-			if (element.id == index) {
+			if (element.value == index) {
 				element.checked = false
 			}
 		});
@@ -14,10 +14,10 @@ function menu_categoria(index) {
     let inputElement = element.children[0];
 		
 		if (inputElement.checked) {
-			document.getElementById('menu-categoria' + inputElement.id).style.display = 'flex'
+			document.getElementById('menu-categoria' + inputElement.value).style.display = 'flex'
 		} else {
-			document.getElementById('menu-categoria' + inputElement.id).style.display = 'none'
-			document.querySelectorAll('#menu-categoria' + inputElement.id + ' .btn-tag').forEach(tag => tag.checked = false)
+			document.getElementById('menu-categoria' + inputElement.value).style.display = 'none'
+			document.querySelectorAll('#menu-categoria' + inputElement.value + ' .btn-tag').forEach(tag => tag.checked = false)
 		}
 	})
 

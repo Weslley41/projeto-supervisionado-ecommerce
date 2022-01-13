@@ -5,7 +5,7 @@ function buscarProdutos() {
 		boxConteudo.id = 'box-conteudo';
 		body.appendChild(boxConteudo);
 	}
-	
+
 	let contentProdutos = new XMLHttpRequest();
 	contentProdutos.onreadystatechange = () =>  {
 		if (document.getElementById('resultados-busca') == null) {
@@ -29,6 +29,11 @@ function buscarProdutos() {
 
 	contentProdutos.open('GET', '/ecommerce/php/view/requests/buscaProduto.php' + window.location.search + '&order=' + ordenacao() + '&limite=' + pagina * 20, true);
 	contentProdutos.send();
+	filtrosAtivos();
+}
+
+function getBusca() {
+	return document.querySelector('input#busca').value;
 }
 
 function criarSubtitleBusca() {

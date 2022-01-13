@@ -15,7 +15,7 @@ function criarCategoria(id, nome) {
 	let inputCategorias = document.createElement('input');
 	inputCategorias.type = 'radio';
 	inputCategorias.className = 'btn-categoria';
-	inputCategorias.id = id // 'btn-categoria' + id;
+	inputCategorias.id = 'c' + id;
 	inputCategorias.name = 'categoria'
 	inputCategorias.value = id;
 	inputCategorias.addEventListener('click', function() {menu_categoria(id)});
@@ -40,7 +40,7 @@ function criarTag(categoriaId, id, nome) {
 	let inputTags = document.createElement('input')
 	inputTags.type = 'checkbox';
 	inputTags.className = 'btn-tag';
-	inputTags.id = id;
+	inputTags.id = 't' + id;
 	inputTags.name = 'tag[]';
 	inputTags.value = id;
 	let labelTag = document.createElement('label');
@@ -70,10 +70,60 @@ function exibirFiltros() {
 		});
 	}
 
-	formSidebar.open('GET', '/ecommerce/php/view/requests/filtro.php?busca=' + getPesquisa(), true);
+	formSidebar.open('GET', '/ecommerce/php/view/requests/filtro.php?busca=' + getBuscaURL(), true);
 	formSidebar.send();
+	filtrosAtivos();
 }
 
-function getPesquisa() {
-	return document.getElementsByName('busca')[0].value;
+function getBuscaURL() {
+	let filtros = new URLSearchParams(window.location.search);
+	let busca = filtros.get('busca');
+	busca = busca != undefined ? busca : '';
+
+	return busca;
+}
+
+function filtrosAtivos() {
+	let filtros = new URLSearchParams(window.location.search);
+	let busca = filtros.get('busca');
+	let categoria = filtros.get('categoria');
+	let tags = filtros.getAll('tag[]');
+
+	if (busca != null) {
+		document.querySelector('input#busca').value = busca;
+	}
+	if (categoria != null) {
+		document.querySelector('input#c' + categoria).click();
+	}
+	if (tags.length > 0) {
+		tags.forEach(tag => document.querySelector('input#t' + tag).click());
+	}
+}
+
+function aplicarFiltro() {
+	let categoria = undefined;
+	document.querySelectorAll('.btn-categoria').forEach(btnCategoria => {
+		if (btnCategoria.checked) {
+			categoria = btnCategoria.value;
+		}
+	});
+
+	let tags = Array();
+	document.querySelectorAll('.btn-tag').forEach(btnTag => {
+		if (btnTag.checked) {
+			tags.push(btnTag.value);
+		}
+	});
+
+	if (categoria != undefined) {
+		let str_filtro = '?busca=' + getBuscaURL() + '&categoria=' + categoria;
+
+		if (tags.length > 0) {
+			tags.forEach(tag => {
+				str_filtro += '&tag[]=' + tag;
+			});
+		}
+
+		window.location.search = str_filtro;
+	}
 }

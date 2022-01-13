@@ -62,7 +62,7 @@
 			$categoria = $_POST['categoria'];
 			$parametros = array($nome, $categoria, $valor, $estoque, $id);
 			$tags = $_POST['tag'];
-			// $thumb_image = $_FILES['thumb-image']['tmp_name'];
+			$thumb_image = $_FILES['thumb-image']['tmp_name'];
 			// $images = $_FILES['images']['tmp_name'];
 
 			$sql = "UPDATE produtos SET nome = ?, id_categoria = ?, valor = ?, estoque = ? WHERE id = ?";
@@ -90,6 +90,13 @@
 				$parametros = array($id, $tag);
 				$insercao->execute($parametros);
 			}
+
+			// Alteração de imagens
+			$path = "../../../assets/produtos/";
+			$filename = "P$id" . "_I0.jpg";
+			$caminho = $path . $filename;
+
+			move_uploaded_file($thumb_image, $caminho);
 		}
 
 		function excluir($id) {

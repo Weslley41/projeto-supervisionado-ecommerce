@@ -13,6 +13,12 @@ function editarProduto() {
 	botoes[0].setAttribute('onclick', 'window.history.back()');
 	botoes[1].innerText = 'Atualizar';
 	botoes[1].name = 'btn-atualizar';
+	let form = document.querySelector('form');
+	let remainingImgs = document.createElement('input');
+	remainingImgs.type = 'hidden';
+	remainingImgs.id = 'remaining-imgs';
+	remainingImgs.name = 'remaining-imgs';
+	form.appendChild(remainingImgs);
 
 	// Pegando dados do produto
 	let busca = new XMLHttpRequest();
@@ -25,8 +31,7 @@ function editarProduto() {
 		document.getElementById('input-estoque').value = response.produto.estoque;
 		document.getElementById('c' + response.produto.categoria[0].id).selected = true;
 		response.produto.tags.forEach(tag => document.getElementById('t' + tag.id).selected = true);
-		document.getElementById('input-thumb');
-		document.getElementById('input-imgs');
+		listaImagensPermanecentes();
 	}
 
 	busca.open('GET', '/ecommerce/php/view/requests/buscaProduto.php?edicao=1&id=' + id_prod, true);
@@ -55,4 +60,18 @@ function removerImagem() {
 	lista_imagens.splice(index_img, 1);
 	--index_img;
 	previewImagens();
+	listaImagensPermanecentes();
+}
+
+function listaImagensPermanecentes() {
+	remainingImgs = Array();
+	lista_imagens.forEach(imagem => {
+		if (typeof(imagem) === 'string') {
+			let start = imagem.search('I') + 1;
+			let end = imagem.search('.jpg');
+			
+			remainingImgs.push(imagem.slice(start, end));
+		}
+	});
+	document.getElementById('remaining-imgs').value = remainingImgs.join();
 }

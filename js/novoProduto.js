@@ -26,6 +26,7 @@ function paginaNovoProduto() {
 	let inputValor = document.createElement('input');
 	inputValor.name = 'valor';
 	inputValor.id = 'input-valor';
+	inputValor.type = 'number';
 	inputValor.required = 'true';
 	inputValor.placeholder = 'Valor';
 	duasColunas1.appendChild(inputValor);
@@ -41,6 +42,7 @@ function paginaNovoProduto() {
 	inputEstoque.name = 'estoque';
 	inputEstoque.id = 'input-estoque';
 	inputEstoque.placeholder = 'Estoque';
+	inputEstoque.type = 'number';
 	inputEstoque.required = 'true';
 	duasColunas2.appendChild(inputEstoque);
 	let inputTags = document.createElement('select');

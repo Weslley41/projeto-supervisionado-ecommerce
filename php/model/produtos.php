@@ -63,7 +63,7 @@
 			$parametros = array($nome, $categoria, $valor, $estoque, $id);
 			$tags = $_POST['tag'];
 			$thumb_image = $_FILES['thumb-image']['tmp_name'];
-			// $images = $_FILES['images']['tmp_name'];
+			$images = $_FILES['images']['tmp_name'];
 
 			$sql = "UPDATE produtos SET nome = ?, id_categoria = ?, valor = ?, estoque = ? WHERE id = ?";
 			$update = $this->conexao->prepare($sql);
@@ -92,11 +92,46 @@
 			}
 
 			// Alteração de imagens
-			$path = "../../../assets/produtos/";
-			$filename = "P$id" . "_I0.jpg";
-			$caminho = $path . $filename;
+			$remaining_imgs = explode(',', $_POST['remaining-imgs']);
 
-			move_uploaded_file($thumb_image, $caminho);
+			// Remoção de imagens não utilizadas
+			foreach (glob("../../../assets/produtos/P".$id."_*.jpg") as $filename) {
+				$start = strpos($filename, 'I') + 1;
+				$len = strpos($filename, '.jpg') - $start;
+				$index_img = substr($filename, $start, $len);
+
+				if (!in_array($index_img, $remaining_imgs)) {
+					unlink($filename);
+
+					$sql = "DELETE FROM imagens WHERE caminho = ?";
+					$excluirImg = $this->conexao->prepare($sql);
+					$excluirImg->bindParam(1, $filename, PDO::PARAM_STR);
+					$excluirImg->execute();
+				}
+			}
+
+			// Alteração de thumbnail
+			if (isset($thumb_image)) {
+				$path = "../../../assets/produtos/";
+				$filename = "P$id" . "_I0.jpg";
+				$caminho = $path . $filename;
+
+				move_uploaded_file($thumb_image, $caminho);
+			}
+
+			// Adição de novas imagens
+			foreach ($images as $image) {
+				$index_img += 1;
+				$filename = "P$id" . "_I$index_img.jpg";
+				$caminho = $path . $filename;
+				
+				if (move_uploaded_file($image, $caminho)) {
+					$insercao = $this->conexao->prepare("INSERT INTO imagens(id_produto, caminho) VALUES (?, ?)");
+					$parametros = array($id, $caminho);
+					$insercao->execute($parametros);
+				}
+
+			}
 		}
 
 		function excluir($id) {

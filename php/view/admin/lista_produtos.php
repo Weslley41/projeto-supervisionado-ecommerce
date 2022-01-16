@@ -25,6 +25,7 @@
 </head>
 <body>
 	<?php
+		include_once('../../login/login_admin.php');
 		include_once('../../../html/header_admin.html');
 	?>
 	<script>criar_tabela()</script>

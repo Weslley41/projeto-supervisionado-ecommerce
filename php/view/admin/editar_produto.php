@@ -21,6 +21,7 @@
 </head>
 <body onload="editarProduto()">
 	<?php
+		include_once('../../login/login_admin.php');
 		include_once('../../../html/header_admin.html');
 
 		include_once('../../db/conexao.php');

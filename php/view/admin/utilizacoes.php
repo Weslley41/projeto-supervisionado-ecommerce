@@ -26,6 +26,7 @@
 </head>
 <body onload="criarTabelaUtilizacoes()">
 	<?php
+		include_once('../../login/login_admin.php');
 		include_once('../../../html/header_admin.html');
 	?>
 </body>

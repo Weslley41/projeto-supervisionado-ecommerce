@@ -8,7 +8,7 @@ checkbox.addEventListener('change', function() {
 })
 
 function mudaTema() {
-	let dark_mode = document.cookie;
+	let dark_mode = document.cookie.split(';')[0];
 	let estadoAtual = dark_mode.substring(dark_mode.indexOf('=') + 1);
 	if (estadoAtual == 'on') {
 		checkbox.click();

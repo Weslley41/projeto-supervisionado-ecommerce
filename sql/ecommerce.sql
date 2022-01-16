@@ -36,3 +36,10 @@ CREATE TABLE IF NOT EXISTS prod_tags (
 	id_produto INT REFERENCES produtos(id),
 	id_tag INT REFERENCES tags(id)
 );
+
+-- Tabela de usuários
+CREATE TABLE IF NOT EXISTS usuarios (
+	id VARCHAR(30) PRIMARY KEY,
+	nome VARCHAR(100),
+	adm BOOLEAN DEFAULT FALSE
+);

@@ -23,6 +23,7 @@
 	<script src="../../../js/criarBoxScroll.js"></script>
 	<script src="../../../js/menu_categoria.js"></script>
 	<script src="../../../js/filtro.js"></script>
+	<script src="../../../js/favoritos.js"></script>
 </head>
 
 <body>
@@ -35,6 +36,7 @@
 		criarBoxSroll('#box-conteudo', 'Novidades');
 		criarBoxSroll('#box-conteudo', 'Destaques');
 		exibirFiltros();
+		selecionaFavoritos();
 	</script>
 </body>
 </html>

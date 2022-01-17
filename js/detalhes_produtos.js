@@ -13,6 +13,7 @@ function exibirProduto() {
 		let response = JSON.parse(conteudo.responseText);
 		adicionaImagens(response);
 		adicionaDescricao(response);
+		selecionarFavoritoDetalhes(response.produto.id);
 	}
 
 	conteudo.open('GET', '/ecommerce/php/view/requests/buscaProduto.php?id=' + getID(), true);
@@ -83,6 +84,8 @@ function adicionaDescricao(response) {
 	let btn_fav = document.createElement('button');
 	btn_fav.className = 'btn-padrao';
 	btn_fav.innerText = 'Adicionar aos favoritos';
+	btn_fav.id = 'btn-prod-fav';
+	btn_fav.setAttribute('onclick', 'favoritar(' + response.produto.id + ', true)');
 	botoes.appendChild(btn_cart);
 	botoes.appendChild(btn_fav);
 

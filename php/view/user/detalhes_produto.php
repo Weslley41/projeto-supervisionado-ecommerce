@@ -16,6 +16,7 @@
 	<link rel="stylesheet" href="../../../css/detalhes_produto.css">
 	<link rel="stylesheet" href="../../../css/btn_padrao.css">
 	<script src="../../../js/detalhes_produtos.js"></script>
+	<script src="../../../js/favoritos.js"></script>
 </head>
 <body onload="exibirProduto()">
 	<?php

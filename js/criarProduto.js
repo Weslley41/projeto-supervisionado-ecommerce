@@ -37,6 +37,7 @@ function criarProduto(localConteudo, id, p_nome, p_valor, srcImagem) {
 	favoritarProduto.type = "checkbox";
 	favoritarProduto.id = "fav-produto" + id;
 	favoritarProduto.className = "fav-icon";
+	favoritarProduto.setAttribute("onclick", "favoritar(" + id + ")");
 	descricaoProduto.appendChild(favoritarProduto);
 
 	// Adiciona o novo produto ao conteúdo

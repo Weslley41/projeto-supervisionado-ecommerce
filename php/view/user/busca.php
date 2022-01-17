@@ -23,6 +23,7 @@
 	<script src="../../../js/criarProduto.js"></script>
 	<script src="../../../js/buscaProduto.js"></script>
 	<script src="../../../js/controladorPaginas.js"></script>
+	<script src="../../../js/favoritos.js"></script>
 </head>
 <body onload="buscarProdutos()">
 	<?php

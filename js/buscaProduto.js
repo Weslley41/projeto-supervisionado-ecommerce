@@ -25,6 +25,7 @@ function buscarProdutos() {
 		})
 
 		criarControlador(response.quantidade, 20, 'buscarProdutos()');
+		selecionaFavoritos();
 	}
 
 	contentProdutos.open('GET', '/ecommerce/php/view/requests/buscaProduto.php' + window.location.search + '&order=' + ordenacao() + '&limite=' + pagina * 20, true);

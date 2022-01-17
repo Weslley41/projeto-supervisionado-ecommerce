@@ -43,3 +43,9 @@ CREATE TABLE IF NOT EXISTS usuarios (
 	nome VARCHAR(100),
 	adm BOOLEAN DEFAULT FALSE
 );
+
+-- Relacionamento entre usuários e produtos favoritos
+CREATE TABLE IF NOT EXISTS fav_user (
+	id_usuario VARCHAR(30) REFERENCES usuarios(id),
+	id_produto INT REFERENCES produtos(id)
+);

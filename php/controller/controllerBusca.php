@@ -22,11 +22,26 @@
 				"nome0" => "prod.nome DESC"
 			);
 
+			if (in_array("user_busca", $param_keys)) {
+				require '../../../vendor/autoload.php';
+				session_start();
+				$user = unserialize($_SESSION['loginUser']);
+				$user_id = $user->getId();
+				if ($parametros['user_busca'] == 'favoritos') {
+					$limite = $parametros['limite'];
+					$parametros = array($user_id, $limite);
+
+					$resultado = $this->pesquisa->produtosFavoritos($parametros);
+					$qntd_resultados = $this->pesquisa->qntdProdutosFavoritos($user_id);
+
+					return $this->produtosComImagemJSON($qntd_resultados, $resultado);
+				}
+			}
 			if (in_array("id", $param_keys)) {
-				if (in_array("edicao", $param_keys))
-					$produto = $this->pesquisa->produtoParaEdicao($parametros);
-				else
-					$produto = $this->pesquisa->produtoPorID($parametros);
+					if (in_array("edicao", $param_keys))
+						$produto = $this->pesquisa->produtoParaEdicao($parametros);
+					else
+						$produto = $this->pesquisa->produtoPorID($parametros);
 
 				return $this->produtoPorIdJSON($produto);
 			} else

@@ -118,6 +118,17 @@
 			return $pesquisa->fetchAll();
 		}
 
+		function produtosFavoritos($parametros) {
+			$sql = "SELECT p.id, p.nome, p.valor FROM produtos p
+			JOIN fav_user fav ON fav.id_produto = p.id
+			AND fav.id_usuario = ? LIMIT ?, 20";
+
+			$pesquisa = $this->conexao->prepare($sql);
+			$pesquisa->execute($parametros);
+
+			return $pesquisa->fetchAll();
+		}
+
 		function imagens($parametros) {
 			$sql = "SELECT DISTINCT caminho FROM imagens WHERE id_produto = ? LIMIT ?";
 
@@ -265,6 +276,18 @@
 			$pesquisa = $this->conexao->prepare($sql);
 			$pesquisa->execute($parametros);
 			$qntd = $pesquisa->fetchAll()[0]['count(DISTINCT(prod.id))'];
+
+			return $qntd;
+		}
+
+		function qntdProdutosFavoritos($user_id) {
+			$sql = "SELECT count(id_produto) FROM fav_user WHERE id_usuario = ?";
+
+			$pesquisa = $this->conexao->prepare($sql);
+			$pesquisa->bindParam(1, $user_id);
+			$pesquisa->execute();
+
+			$qntd = $pesquisa->fetchAll()[0]['count(id_produto)'];
 
 			return $qntd;
 		}

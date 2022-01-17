@@ -1,0 +1,36 @@
+* {
+	margin: 0;
+	outline: none;
+	border: 0;
+}
+
+#box-header {
+	height: 17vh;
+}
+
+#box-conteudo {
+	height: 83vh;
+}
+
+#btn-filtro {
+	display: none;
+}
+
+#box-titulo {
+	color: var(--color-3);
+	padding-top: 20px;
+	padding-left: 25px;
+}
+
+#box-titulo h2 {
+	padding-left: 10px;
+}
+
+hr {
+	margin: 10px 20px 20px 0px;
+	border: 1px solid var(--color-2);
+}
+
+#paginas {
+	justify-content: center;
+}

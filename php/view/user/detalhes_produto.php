@@ -18,8 +18,9 @@
 	<script src="../../../js/detalhes_produtos.js"></script>
 	<script src="../../../js/favoritos.js"></script>
 	<script src="../../../js/estaLogado.js"></script>
+	<script src="../../../js/adicionarCarrinho.js"></script>
 </head>
-<body onload="exibirProduto();estaLogado()">
+<body onload="exibirProduto();estaLogado();verificaProdCart()">
 	<?php
 		include_once('../../../html/header.html');
 	?>

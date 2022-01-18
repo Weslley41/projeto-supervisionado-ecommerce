@@ -80,6 +80,8 @@ function adicionaDescricao(response) {
 	botoes.id = 'btns-produto';
 	let btn_cart = document.createElement('button');
 	btn_cart.className = 'btn-padrao';
+	btn_cart.id = 'btn-add-cart';
+	btn_cart.setAttribute('onclick', 'adicionarAoCarrinho(' + response.produto.id + ')')
 	btn_cart.innerText = 'Adicionar ao carrinho';
 	let btn_fav = document.createElement('button');
 	btn_fav.className = 'btn-padrao';

@@ -49,3 +49,10 @@ CREATE TABLE IF NOT EXISTS fav_user (
 	id_usuario VARCHAR(30) REFERENCES usuarios(id),
 	id_produto INT REFERENCES produtos(id)
 );
+
+-- Relacionamento entre usuários e produtos no carrinho
+CREATE TABLE IF NOT EXISTS user_cart (
+	id_usuario VARCHAR(30) REFERENCES usuarios(id),
+	id_produto INT REFERENCES produtos(id),
+	qntd_produto INT
+);

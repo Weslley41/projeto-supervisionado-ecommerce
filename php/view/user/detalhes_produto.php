@@ -20,7 +20,7 @@
 	<script src="../../../js/estaLogado.js"></script>
 	<script src="../../../js/adicionarCarrinho.js"></script>
 </head>
-<body onload="exibirProduto();estaLogado();verificaProdCart()">
+<body onload="exibirProduto();estaLogado()">
 	<?php
 		include_once('../../../html/header.html');
 	?>

@@ -95,6 +95,8 @@ function adicionaDescricao(response) {
 	conteudoProduto.appendChild(valor);
 	conteudoProduto.appendChild(botoes);
 	boxConteudo.appendChild(conteudoProduto);
+
+	verificaProdCart();
 }
 
 function criarPopupImagens(imagens) {

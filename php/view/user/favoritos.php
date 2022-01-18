@@ -19,8 +19,9 @@
 	<script src="../../../js/favoritos.js"></script>
 	<script src="../../../js/criarProduto.js"></script>
 	<script src="../../../js/controladorPaginas.js"></script>
+	<script src="../../../js/estaLogado.js"></script>
 </head>
-<body onload="mostraFavoritos()">
+<body onload="mostraFavoritos();estaLogado()">
 	<?php
 		require '../../../vendor/autoload.php';
 		session_start();

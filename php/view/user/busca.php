@@ -24,8 +24,9 @@
 	<script src="../../../js/buscaProduto.js"></script>
 	<script src="../../../js/controladorPaginas.js"></script>
 	<script src="../../../js/favoritos.js"></script>
+	<script src="../../../js/estaLogado.js"></script>
 </head>
-<body onload="buscarProdutos()">
+<body onload="buscarProdutos();estaLogado()">
 	<?php
 		include_once('../../../html/header.html');
 		include_once('../../../html/sidebar.html');

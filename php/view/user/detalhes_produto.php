@@ -17,8 +17,9 @@
 	<link rel="stylesheet" href="../../../css/btn_padrao.css">
 	<script src="../../../js/detalhes_produtos.js"></script>
 	<script src="../../../js/favoritos.js"></script>
+	<script src="../../../js/estaLogado.js"></script>
 </head>
-<body onload="exibirProduto()">
+<body onload="exibirProduto();estaLogado()">
 	<?php
 		include_once('../../../html/header.html');
 	?>

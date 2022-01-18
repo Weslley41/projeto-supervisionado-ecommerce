@@ -13,7 +13,7 @@
 	<link rel="stylesheet" href="../../css/login.css">
 	<link rel="stylesheet" href="../../css/switch_theme.css">
 </head>
-<body>
+<body onload="mudaTema()">
 	<header>
 		<span id="title">Página de Login</span>
 		<input class="icon" type="checkbox" name="switch-theme" id="switch-theme">

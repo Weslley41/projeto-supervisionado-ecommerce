@@ -24,9 +24,10 @@
 	<script src="../../../js/menu_categoria.js"></script>
 	<script src="../../../js/filtro.js"></script>
 	<script src="../../../js/favoritos.js"></script>
+	<script src="../../../js/estaLogado.js"></script>
 </head>
 
-<body>
+<body onload="estaLogado()">
 	<?php
 		include_once('../../../html/header.html');
 		include_once('../../../html/sidebar.html');

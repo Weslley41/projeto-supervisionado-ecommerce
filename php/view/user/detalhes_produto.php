@@ -18,7 +18,7 @@
 	<script src="../../../js/detalhes_produtos.js"></script>
 	<script src="../../../js/favoritos.js"></script>
 	<script src="../../../js/estaLogado.js"></script>
-	<script src="../../../js/adicionarCarrinho.js"></script>
+	<script src="../../../js/carrinho.js"></script>
 </head>
 <body onload="exibirProduto();estaLogado()">
 	<?php

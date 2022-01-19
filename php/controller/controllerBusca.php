@@ -35,6 +35,10 @@
 					$qntd_resultados = $this->pesquisa->qntdProdutosFavoritos($user_id);
 
 					return $this->produtosComImagemJSON($qntd_resultados, $resultado);
+				} else if ($parametros['user_busca'] == 'carrinho') {
+					$resultado = $this->pesquisa->produtosNoCarrinho($user_id);
+
+					return $this->produtosComImagemJSON(0, $resultado);
 				}
 			}
 			if (in_array("id", $param_keys)) {

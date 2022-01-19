@@ -27,6 +27,7 @@ function paginaNovoProduto() {
 	inputValor.name = 'valor';
 	inputValor.id = 'input-valor';
 	inputValor.type = 'number';
+	inputValor.step = "0.01";
 	inputValor.required = 'true';
 	inputValor.placeholder = 'Valor';
 	duasColunas1.appendChild(inputValor);

@@ -16,6 +16,7 @@
 	<link rel="stylesheet" href="../../../css/busca.css">
 	<link rel="stylesheet" href="../../../css/favoritos.css">
 	<link rel="stylesheet" href="../../../css/carrinho.css">
+	<link rel="stylesheet" href="../../../css/btn_padrao.css">
 	<!-- JS -->
 	<script src="../../../js/carrinho.js"></script>
 	<script src="../../../js/criarProduto.js"></script>

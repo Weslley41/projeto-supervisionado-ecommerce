@@ -82,5 +82,16 @@
 				return [$in_cart, $qntd_atual];
 			}
 		}
+
+		function getValoresCarrinho() {
+			$sql = "SELECT p.valor, cart.qntd_produto FROM user_cart cart
+			JOIN produtos p ON p.id = cart.id_produto
+			WHERE cart.id_usuario = ?";
+			$carrinho = $this->conexao->prepare($sql);
+			$carrinho->bindParam(1, $this->id);
+			$carrinho->execute();
+
+			return $carrinho->fetchAll(PDO::FETCH_ASSOC);
+		}
 	}
 ?>

@@ -1,4 +1,5 @@
 function criarPopup(textoTitulo, textoConteudo) {
+	document.querySelector('body').style.overflow = 'hidden';
 	if (document.querySelector('.bg-popup') == null) {
 		let body = document.querySelector('body');
 		let bgPopup = document.createElement('div');
@@ -39,6 +40,7 @@ function criarBotoes(botoes) {
 }
 
 function fecharPopup() {
+	document.querySelector('body').overflow = 'auto';
 	let bgPopup = document.querySelector('.bg-popup');
 	bgPopup.style.display = 'none';
 	bgPopup.innerHTML = '';

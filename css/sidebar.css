@@ -5,7 +5,7 @@
 	color: var(--color-3);
 	width: 15%;
 	height: 80%;
-	overflow: hidden scroll;
+	overflow: hidden auto;
 }
 
 .title {

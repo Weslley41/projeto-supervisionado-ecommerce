@@ -17,11 +17,13 @@
 	<link rel="stylesheet" href="../../../css/favoritos.css">
 	<link rel="stylesheet" href="../../../css/carrinho.css">
 	<link rel="stylesheet" href="../../../css/btn_padrao.css">
+	<link rel="stylesheet" href="../../../css/popup.css">
 	<!-- JS -->
 	<script src="../../../js/carrinho.js"></script>
 	<script src="../../../js/criarProduto.js"></script>
 	<script src="../../../js/controladorPaginas.js"></script>
 	<script src="../../../js/estaLogado.js"></script>
+	<script src="../../../js/popup.js"></script>
 </head>
 <body onload="mostraCarrinho();estaLogado()">
 	<?php

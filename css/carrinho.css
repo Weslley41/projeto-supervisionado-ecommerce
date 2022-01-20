@@ -61,7 +61,7 @@
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: center;
-	width: 100px;
+	width: 135px;
 	height: 100%;
 }
 
@@ -88,6 +88,14 @@
 	color: var(--color-3);
 	font-size: 14px;
 	border-bottom: 1px solid var(--tertiary-color);
+}
+
+#btn-remover {
+	padding: 1px;
+}
+
+#btn-remover:hover {
+	background-color: var(--color-6);
 }
 
 input::-webkit-outer-spin-button,
@@ -125,4 +133,73 @@ input[type=number] {
 #btn-finalizar-compra {
 	width: 90%;
 	align-self: center;
+}
+
+#popup-conteudo {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.div-table {
+	width: 100%;
+}
+
+.div-thead {
+	display: flex;
+	width: 100%;
+	border-bottom: 1px solid var(--primary-color);
+	padding-bottom: 5px;
+	margin-bottom: 10px;
+}
+
+.div-tbody {
+	height: 150px;
+	overflow-y: auto;
+}
+
+.span-th {
+	text-align: center;
+}
+
+.span-td {
+	text-align: center;
+	height: 20px;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.span-tr {
+	display: flex;
+	height: 30px;
+	width: 100%;
+}
+
+#qntd-produto {
+	width: 15%;
+}
+
+#nome-produto {
+	width: 55%;
+	padding-left: 20px;
+	text-align: left;
+}
+
+#valor-produto {
+	width: 30%;
+}
+
+#separador-popup {
+	width: 100%;
+	margin: 10px 0;
+}
+
+#box-valor-total {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	width: 90%;
+	font-family: var(--font);
+	font-size: 16px;
 }

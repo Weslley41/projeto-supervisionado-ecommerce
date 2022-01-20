@@ -3,6 +3,7 @@
 	session_start();
 	if (empty($_SESSION['loginUser'])){
 		header("Location: /ecommerce/php/login/");
+		die();
 	} else {
 		include_once('../../db/conexao.php');
 

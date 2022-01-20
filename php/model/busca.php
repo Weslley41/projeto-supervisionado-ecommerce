@@ -51,9 +51,9 @@
 			return $pesquisa->fetchAll();
 		}
 
-		function produtoPorNome($parametros) {
+		function produtoPorNome($parametros, $order) {
 			$sql = "SELECT DISTINCT prod.id, prod.nome, prod.valor FROM produtos prod
-			WHERE prod.nome LIKE ? ORDER BY ? LIMIT ?, 20";
+			WHERE prod.nome LIKE ? ORDER BY $order LIMIT ?, 20";
 
 			$pesquisa = $this->conexao->prepare($sql);
 			$pesquisa->execute($parametros);
@@ -61,9 +61,9 @@
 			return $pesquisa->fetchAll();
 		}
 
-		function produtoPorCategoria($parametros) {
+		function produtoPorCategoria($parametros, $order) {
 			$sql = "SELECT DISTINCT prod.id, prod.nome, prod.valor FROM produtos prod
-			WHERE prod.id_categoria = ? ORDER BY ? LIMIT ?, 20";
+			WHERE prod.id_categoria = ? ORDER BY $order LIMIT ?, 20";
 
 			$pesquisa = $this->conexao->prepare($sql);
 			$pesquisa->execute($parametros);
@@ -71,10 +71,10 @@
 			return $pesquisa->fetchAll();
 		}
 
-		function produtoPorTag($place_tags, $parametros) {
+		function produtoPorTag($place_tags, $parametros, $order) {
 			$sql = "SELECT DISTINCT prod.id, prod.nome, prod.valor FROM produtos prod
 			JOIN prod_tags rel ON prod.id = rel.id_produto
-			AND rel.id_tag IN ($place_tags) ORDER BY ? LIMIT ?, 20";
+			AND rel.id_tag IN ($place_tags) ORDER BY $order LIMIT ?, 20";
 
 			$pesquisa = $this->conexao->prepare($sql);
 			$pesquisa->execute($parametros);
@@ -82,11 +82,11 @@
 			return $pesquisa->fetchAll();
 		}
 
-		function produtoPorCategoriaTag($place_tags, $parametros) {
+		function produtoPorCategoriaTag($place_tags, $parametros, $order) {
 			$sql = "SELECT DISTINCT prod.id, prod.nome, prod.valor FROM produtos prod
 			JOIN prod_tags rel ON prod.id = rel.id_produto
 			WHERE prod.id_categoria = ?
-			AND rel.id_tag IN ($place_tags) ORDER BY ? LIMIT ?, 20";
+			AND rel.id_tag IN ($place_tags) ORDER BY $order LIMIT ?, 20";
 
 			$pesquisa = $this->conexao->prepare($sql);
 			$pesquisa->execute($parametros);
@@ -94,10 +94,10 @@
 			return $pesquisa->fetchAll();
 		}
 
-		function produtoPorCategoriaEnome($parametros) {
+		function produtoPorCategoriaEnome($parametros, $order) {
 			$sql = "SELECT DISTINCT prod.id, prod.nome, prod.valor FROM produtos prod
 			WHERE prod.id_categoria = ?
-			AND prod.nome LIKE ? ORDER BY ? LIMIT ?, 20";
+			AND prod.nome LIKE ? ORDER BY $order LIMIT ?, 20";
 
 			$pesquisa = $this->conexao->prepare($sql);
 			$pesquisa->execute($parametros);
@@ -105,12 +105,12 @@
 			return $pesquisa->fetchAll();
 		}
 
-		function produtoPorTagsEnome($place_tags, $parametros) {
+		function produtoPorTagsEnome($place_tags, $parametros, $order) {
 			$sql = "SELECT DISTINCT prod.id, prod.nome, prod.valor FROM produtos prod
 			JOIN prod_tags rel ON prod.id = rel.id_produto
 			WHERE prod.id_categoria = ?
 			AND rel.id_tag IN ($place_tags)
-			AND prod.nome LIKE ? ORDER BY ? LIMIT ?, 20";
+			AND prod.nome LIKE ? ORDER BY $order LIMIT ?, 20";
 
 			$pesquisa = $this->conexao->prepare($sql);
 			$pesquisa->execute($parametros);
@@ -151,9 +151,9 @@
 		}
 
 		// Busca de exibição nas tabelas de administração
-		function tabelaProdutoPorNome($parametros) {
+		function tabelaProdutoPorNome($parametros, $order) {
 			$sql = "SELECT DISTINCT prod.id, prod.nome, prod.valor, prod.estoque, prod.data_cadastro, prod.visitas
-			FROM produtos prod WHERE prod.nome LIKE ? ORDER BY ? LIMIT ?, 10";
+			FROM produtos prod WHERE prod.nome LIKE ? ORDER BY $order LIMIT ?, 10";
 
 			$pesquisa = $this->conexao->prepare($sql);
 			$pesquisa->execute($parametros);
@@ -161,9 +161,9 @@
 			return $pesquisa->fetchAll();
 		}
 
-		function tabelaProdutoPorCategoria($parametros) {
+		function tabelaProdutoPorCategoria($parametros, $order) {
 			$sql = "SELECT DISTINCT prod.id, prod.nome, prod.valor, prod.estoque, prod.data_cadastro, prod.visitas
-			FROM produtos prod WHERE prod.id_categoria = ? ORDER BY ? LIMIT ?, 8";
+			FROM produtos prod WHERE prod.id_categoria = ? ORDER BY $order LIMIT ?, 8";
 
 			$pesquisa = $this->conexao->prepare($sql);
 			$pesquisa->execute($parametros);
@@ -171,11 +171,11 @@
 			return $pesquisa->fetchAll();
 		}
 
-		function tabelaProdutoPorTag($place_tags, $parametros) {
+		function tabelaProdutoPorTag($place_tags, $parametros, $order) {
 			$sql = "SELECT DISTINCT prod.id, prod.nome, prod.valor, prod.estoque, prod.data_cadastro, prod.visitas
 			FROM produtos prod
 			JOIN prod_tags rel ON prod.id = rel.id_produto
-			AND rel.id_tag IN ($place_tags) ORDER BY ? LIMIT ?, 8";
+			AND rel.id_tag IN ($place_tags) ORDER BY $order LIMIT ?, 8";
 
 			$pesquisa = $this->conexao->prepare($sql);
 			$pesquisa->execute($parametros);
@@ -183,12 +183,12 @@
 			return $pesquisa->fetchAll();
 		}
 
-		function tabelaProdutoPorCategoriaTag($place_tags, $parametros) {
+		function tabelaProdutoPorCategoriaTag($place_tags, $parametros, $order) {
 			$sql = "SELECT DISTINCT prod.id, prod.nome, prod.valor, prod.estoque, prod.data_cadastro, prod.visitas
 			FROM produtos prod
 			JOIN prod_tags rel ON prod.id = rel.id_produto
 			WHERE prod.id_categoria = ?
-			AND rel.id_tag IN ($place_tags) ORDER BY ? LIMIT ?, 10";
+			AND rel.id_tag IN ($place_tags) ORDER BY $order LIMIT ?, 10";
 
 			$pesquisa = $this->conexao->prepare($sql);
 			$pesquisa->execute($parametros);
@@ -196,9 +196,9 @@
 			return $pesquisa->fetchAll();
 		}
 
-		function tabelaProdutoPorCategoriaEnome($parametros) {
+		function tabelaProdutoPorCategoriaEnome($parametros, $order) {
 			$sql = "SELECT DISTINCT prod.id, prod.nome, prod.valor, prod.estoque, prod.data_cadastro, prod.visitas
-			FROM produtos prod WHERE prod.id_categoria = ? AND prod.nome LIKE ? ORDER BY ? LIMIT ?, 10";
+			FROM produtos prod WHERE prod.id_categoria = ? AND prod.nome LIKE ? ORDER BY $order LIMIT ?, 10";
 
 			$pesquisa = $this->conexao->prepare($sql);
 			$pesquisa->execute($parametros);
@@ -206,13 +206,13 @@
 			return $pesquisa->fetchAll();
 		}
 
-		function tabelaProdutoPorTagsEnome($place_tags, $parametros) {
+		function tabelaProdutoPorTagsEnome($place_tags, $parametros, $order) {
 			$sql = "SELECT DISTINCT prod.id, prod.nome, prod.valor, prod.estoque, prod.data_cadastro, prod.visitas
 			FROM produtos prod
 			JOIN prod_tags rel ON prod.id = rel.id_produto
 			WHERE prod.id_categoria = ?
 			AND rel.id_tag IN ($place_tags)
-			AND prod.nome LIKE ? ORDER BY ? LIMIT ?, 10";
+			AND prod.nome LIKE ? ORDER BY $order LIMIT ?, 10";
 
 			$pesquisa = $this->conexao->prepare($sql);
 			$pesquisa->execute($parametros);

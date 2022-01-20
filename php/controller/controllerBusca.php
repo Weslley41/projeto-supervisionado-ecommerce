@@ -18,8 +18,8 @@
 				"popularidade0" => "prod.visitas",
 				"valor1" => "prod.valor DESC",
 				"valor0" => "prod.valor",
-				"nome1" => "prod.nome",
-				"nome0" => "prod.nome DESC"
+				"nome1" => "prod.nome DESC",
+				"nome0" => "prod.nome"
 			);
 
 			if (in_array("user_busca", $param_keys)) {
@@ -57,56 +57,56 @@
 					$categoria = $parametros['categoria'];
 					if (in_array("tag", $param_keys)) {
 						$tags = $parametros['tag'];
-						$parametros = array_merge(array($categoria), $tags, array("%$busca%", $ordenacao, $parametros['limite']));
+						$parametros = array_merge(array($categoria), $tags, array("%$busca%", $parametros['limite']));
 						$parametros_qntd = array_merge(array($categoria), $tags, array("%$busca%"));
 						$place_tags = implode(',', array_fill(0, count($tags), '?'));
 
-						$resultado = $this->pesquisa->produtoPorTagsEnome($place_tags, $parametros);
+						$resultado = $this->pesquisa->produtoPorTagsEnome($place_tags, $parametros, $ordenacao);
 						$qntd_resultados = $this->pesquisa->qntdProdutoPorTagsEnome($place_tags, $parametros_qntd);
 					} else {
-						$parametros = array($categoria, "%$busca%", $ordenacao, $parametros['limite']);
+						$parametros = array($categoria, "%$busca%", $parametros['limite']);
 						$parametros_qntd = array($categoria, "%$busca%");
 		
-						$resultado = $this->pesquisa->produtoPorCategoriaEnome($parametros);
+						$resultado = $this->pesquisa->produtoPorCategoriaEnome($parametros, $ordenacao);
 						$qntd_resultados = $this->pesquisa->qntdProdutoPorCategoriaEnome($parametros_qntd);
 					}
 				} else {
-					$parametros = array("%$busca%", $ordenacao, $parametros['limite']);
+					$parametros = array("%$busca%", $parametros['limite']);
 					$parametros_qntd = array("%$busca%");
-		
-					$resultado = $this->pesquisa->produtoPorNome($parametros);
+
+					$resultado = $this->pesquisa->produtoPorNome($parametros, $ordenacao);
 					$qntd_resultados = $this->pesquisa->qntdProdutoPorNome($parametros_qntd);
 				}
 			} else if (in_array("categoria", $param_keys)) {
 				$categoria = $parametros['categoria'];
 				if (in_array("tag", $param_keys)) {
 					$tags = $parametros['tag'];
-					$parametros = array_merge(array($categoria), $tags, array($ordenacao, $parametros['limite']));
+					$parametros = array_merge(array($categoria), $tags, array($parametros['limite']));
 					$parametros_qntd = array_merge(array($categoria), $tags);
 					$place_tags = implode(',', array_fill(0, count($tags), '?'));
 		
-					$resultado = $this->pesquisa->produtoPorCategoriaTag($place_tags, $parametros);
+					$resultado = $this->pesquisa->produtoPorCategoriaTag($place_tags, $parametros, $ordenacao);
 					$qntd_resultados = $this->pesquisa->qntdProdutoPorCategoriaTag($place_tags, $parametros_qntd);
 				} else {
-					$parametros = array($categoria, $ordenacao, $parametros['limite']);
+					$parametros = array($categoria, $parametros['limite']);
 					$parametros_qntd = array($categoria);
 		
-					$resultado = $this->pesquisa->produtoPorCategoria($parametros);
+					$resultado = $this->pesquisa->produtoPorCategoria($parametros, $ordenacao);
 					$qntd_resultados = $this->pesquisa->qntdProdutoPorCategoria($parametros_qntd);
 				}
 			} else if (in_array("tag", $param_keys)){
 				$tags = $parametros['tag'];
-				$parametros = array_merge($tags, array($ordenacao, $parametros['limite']));
+				$parametros = array_merge($tags, array($parametros['limite']));
 				$parametros_qntd = $tags;
 				$place_tags = implode(',', array_fill(0, count($tags), '?'));
 		
-				$resultado = $this->pesquisa->produtoPorTag($place_tags, $parametros);
+				$resultado = $this->pesquisa->produtoPorTag($place_tags, $parametros, $ordenacao);
 				$qntd_resultados = $this->pesquisa->qntdProdutoPorTag($place_tags, $parametros_qntd);
 			} else {
-				$parametros = array("%%", $ordenacao, $parametros['limite']);
+				$parametros = array("%%", $parametros['limite']);
 				$parametros_qntd = array("%%");
 		
-				$resultado = $this->pesquisa->produtoPorNome($parametros);
+				$resultado = $this->pesquisa->produtoPorNome($parametros, $ordenacao);
 				$qntd_resultados = $this->pesquisa->qntdProdutoPorNome($parametros_qntd);
 			}
 
@@ -134,8 +134,8 @@
 				"popularidade0" => "prod.visitas",
 				"valor1" => "prod.valor DESC",
 				"valor0" => "prod.valor",
-				"nome1" => "prod.nome",
-				"nome0" => "prod.nome DESC"
+				"nome1" => "prod.nome DESC",
+				"nome0" => "prod.nome"
 			);
 			$ordenacao = $lista_ordenacao[$parametros['order']];
 
@@ -145,56 +145,56 @@
 					$categoria = $parametros['categoria'];
 					if (in_array("tag", $param_keys)) {
 						$tags = $parametros['tag'];
-						$parametros = array_merge(array($categoria), $tags, array("'%$busca%'", $ordenacao, $parametros['limite']));
+						$parametros = array_merge(array($categoria), $tags, array("'%$busca%'", $parametros['limite']));
 						$parametros_qntd = array_merge(array($categoria), $tags, array("'%$busca%'"));
 						$place_tags = implode(',', array_fill(0, count($tags), '?'));
 
-						$resultado = $this->pesquisa->tabelaProdutoPorTagsEnome($place_tags, $parametros);
+						$resultado = $this->pesquisa->tabelaProdutoPorTagsEnome($place_tags, $parametros, $ordenacao);
 						$qntd_resultados = $this->pesquisa->qntdProdutoPorTagsEnome($place_tags, $parametros_qntd);
 					} else {
-						$parametros = array($categoria, "%$busca%", $ordenacao, $parametros['limite']);
+						$parametros = array($categoria, "%$busca%", $parametros['limite']);
 						$parametros_qntd = array($categoria, "%$busca%");
 
-						$resultado = $this->pesquisa->tabelaProdutoPorCategoriaEnome($parametros);
+						$resultado = $this->pesquisa->tabelaProdutoPorCategoriaEnome($parametros, $ordenacao);
 						$qntd_resultados = $this->pesquisa->qntdProdutoPorCategoriaEnome($parametros_qntd);
 					}
 				} else {
-					$parametros = array("%$busca%", $ordenacao, $parametros['limite']);
+					$parametros = array("%$busca%", $parametros['limite']);
 					$parametros_qntd = array("%$busca%");
 		
-					$resultado = $this->pesquisa->tabelaProdutoPorNome($parametros);
+					$resultado = $this->pesquisa->tabelaProdutoPorNome($parametros, $ordenacao);
 					$qntd_resultados = $this->pesquisa->qntdProdutoPorNome($parametros_qntd);
 				}
 			} else if (in_array("categoria", $param_keys)) {
 				$categoria = $parametros['categoria'];
 				if (in_array("tag", $param_keys)) {
 					$tags = $parametros['tag'];
-					$parametros = array_merge(array($categoria), $tags, array($ordenacao, $parametros['limite']));
+					$parametros = array_merge(array($categoria), $tags, array($parametros['limite']));
 					$parametros_qntd = array_merge(array($categoria), $tags);
 					$place_tags = implode(',', array_fill(0, count($tags), '?'));
 		
-					$resultado = $this->pesquisa->tabelaProdutoPorCategoriaTag($place_tags, $parametros);
+					$resultado = $this->pesquisa->tabelaProdutoPorCategoriaTag($place_tags, $parametros, $ordenacao);
 					$qntd_resultados = $this->pesquisa->qntdProdutoPorCategoriaTag($place_tags, $parametros_qntd);
 				} else {
-					$parametros = array($categoria, $ordenacao, $parametros['limite']);
+					$parametros = array($categoria, $parametros['limite']);
 					$parametros_qntd = array($categoria);
 		
-					$resultado = $this->pesquisa->tabelaProdutoPorCategoria($parametros);
+					$resultado = $this->pesquisa->tabelaProdutoPorCategoria($parametros, $ordenacao);
 					$qntd_resultados = $this->pesquisa->qntdProdutoPorCategoria($parametros_qntd);
 				}
 			} else if (in_array("tag", $param_keys)){
 				$tags = $parametros['tag'];
-				$parametros = array_merge($tags, array($ordenacao, $parametros['limite']));
+				$parametros = array_merge($tags, array($parametros['limite']));
 				$parametros_qntd = $tags;
 				$place_tags = implode(',', array_fill(0, count($tags), '?'));
 		
-				$resultado = $this->pesquisa->tabelaProdutoPorTag($place_tags, $parametros);
+				$resultado = $this->pesquisa->tabelaProdutoPorTag($place_tags, $parametros, $ordenacao);
 				$qntd_resultados = $this->pesquisa->qntdProdutoPorTag($place_tags, $parametros_qntd);
 			} else {
-				$parametros = array("%%", $ordenacao, $parametros['limite']);
+				$parametros = array("%%", $parametros['limite']);
 				$parametros_qntd = array("%%");
 		
-				$resultado = $this->pesquisa->tabelaProdutoPorNome($parametros);
+				$resultado = $this->pesquisa->tabelaProdutoPorNome($parametros, $ordenacao);
 				$qntd_resultados = $this->pesquisa->qntdProdutoPorNome($parametros_qntd);
 			}
 

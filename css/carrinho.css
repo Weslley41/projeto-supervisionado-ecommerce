@@ -180,7 +180,8 @@ input[type=number] {
 	width: 15%;
 }
 
-#nome-produto {
+#nome-produto.span-td,
+#nome-produto.span-th {
 	width: 55%;
 	padding-left: 20px;
 	text-align: left;

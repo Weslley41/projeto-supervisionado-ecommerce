@@ -129,18 +129,6 @@
 			return $pesquisa->fetchAll();
 		}
 
-		function produtosNoCarrinho($user_id) {
-			$sql = "SELECT p.id, cart.qntd_produto, p.nome, p.valor FROM produtos p
-			JOIN user_cart cart ON cart.id_produto = p.id
-			AND cart.id_usuario = ?";
-
-			$pesquisa = $this->conexao->prepare($sql);
-			$pesquisa->bindParam(1, $user_id);
-			$pesquisa->execute();
-
-			return $pesquisa->fetchAll();
-		}
-
 		function imagens($parametros) {
 			$sql = "SELECT DISTINCT caminho FROM imagens WHERE id_produto = ? LIMIT ?";
 

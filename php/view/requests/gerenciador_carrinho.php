@@ -20,12 +20,16 @@
 
 			$usuario->removerDoCarrinho($id_prod);
 		} else if ($acao == 'visualizar') {
-			echo json_encode($usuario->getCarrinho());
+			echo '{"produtos":' . json_encode($usuario->getCarrinho()) . '}';
 		} else if ($acao == 'inCart') {
 			$id_prod = $_GET['id'];
 			echo $usuario->prod_inCart($id_prod, true);
 		} else if ($acao == 'valores') {
 			echo '{"produtos":' . json_encode($usuario->getValoresCarrinho()) . '}';
+		} else if ($acao == 'fazerPedido') {
+			$usuario->fazerPedido();
+		} else if ($acao == 'limparCarrinho') {
+			$usuario->limpaCarrinho();
 		}
 	}
 ?>

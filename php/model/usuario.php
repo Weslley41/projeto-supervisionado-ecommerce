@@ -56,7 +56,9 @@
 		}
 
 		function getCarrinho() {
-			$sql = "SELECT id_produto, qntd_produto FROM user_cart WHERE id_usuario = ?";
+			$sql = "SELECT p.id, cart.qntd_produto, p.nome, p.valor, img.caminho AS imagem FROM produtos p
+			JOIN user_cart cart ON cart.id_produto = p.id AND cart.id_usuario = ?
+			JOIN imagens img ON img.id_produto = p.id AND img.caminho LIKE '%I0.jpg'";
 			$carrinho = $this->conexao->prepare($sql);
 			$carrinho->bindParam(1, $this->id);
 			$carrinho->execute();
@@ -65,17 +67,18 @@
 		}
 
 		function prod_inCart($idProduto, $only_cart=false) {
-			$carrinho = $this->getCarrinho();
-			$in_cart = false;
-			$qntd_atual = 0;
-			foreach ($carrinho as $produto) {
-				if ($produto['id_produto'] == $idProduto) {
-					$in_cart = true;
-					$qntd_atual = $produto['qntd_produto'];
-					break;
-				}
-			}
+			$sql = "SELECT qntd_produto FROM user_cart WHERE id_usuario = ? AND id_produto = ?";
+			$prepare_in_cart = $this->conexao->prepare($sql);
+			$prepare_in_cart->execute(array($this->id, $idProduto));
 
+			$resultado = $prepare_in_cart->fetchAll(PDO::FETCH_ASSOC)[0];
+			if ($resultado) {
+				$in_cart = true;
+				$qntd_atual = $resultado['qntd_produto'];
+			} else {
+				$in_cart = false;
+				$qntd_atual = 0;
+			}
 			if ($only_cart) {
 				return $in_cart;
 			} else {
@@ -92,6 +95,38 @@
 			$carrinho->execute();
 
 			return $carrinho->fetchAll(PDO::FETCH_ASSOC);
+		}
+
+		function limpaCarrinho() {
+			$sql = "DELETE FROM user_cart WHERE id_usuario = ?";
+			$limpar = $this->conexao->prepare($sql);
+			$limpar->bindParam(1, $this->id);
+			$limpar->execute();
+		}
+
+		function fazerPedido() {
+			$valoresCarrinho = $this->getValoresCarrinho();
+			$valor = 0;
+			foreach($valoresCarrinho as $produto) {
+				$valor += $produto['valor'] * $produto['qntd_produto'];
+			}
+			$parametros = array($this->id, $valor, date('Y-m-d H-m-s'));
+			$sql = "INSERT INTO pedidos(id_usuario, valor, data_pedido) VALUES(?, ?, ?)";
+			$pedido = $this->conexao->prepare($sql);
+			$pedido->execute($parametros);
+
+			$id_pedido = $this->conexao->lastInsertId();
+			$carrinho = $this->getCarrinho();
+			foreach($carrinho as $produto) {
+				$parametros = array($id_pedido, $produto['id'], $produto['nome'],
+														$produto['qntd_produto'], $produto['valor'],
+														$produto['valor'] * $produto['qntd_produto']);
+				$sql = "INSERT INTO produtos_pedidos VALUES(?, ?, ?, ?, ?, ?)";
+				$ref_prod = $this->conexao->prepare($sql);
+				$ref_prod->execute($parametros);
+			}
+
+			$this->limpaCarrinho();
 		}
 	}
 ?>

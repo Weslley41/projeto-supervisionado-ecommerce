@@ -12,6 +12,24 @@
 	height: 100%;
 }
 
+#box-titulo {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	height: 40px;
+}
+
+#btn-limpar-carrinho {
+	height: 100%;
+	width: 150px;
+	margin-right: 40px;
+	background-color: var(--primary-color);
+}
+
+#btn-limpar-carrinho:hover {
+	background-color: var(--color-6);
+}
+
 #total-carrinho {
 	display: flex;
 	flex-direction: column;

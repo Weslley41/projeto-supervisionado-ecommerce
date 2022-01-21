@@ -60,9 +60,15 @@ function mostraCarrinho() {
 		let title = document.createElement('h2');
 		title.innerText = 'Carrinho de compras';
 		boxTitulo.appendChild(title);
+		let btnLimparCarrinho = document.createElement('button');
+		btnLimparCarrinho.id = 'btn-limpar-carrinho';
+		btnLimparCarrinho.className = 'btn-padrao';
+		btnLimparCarrinho.innerText = 'Limpar Carrinho';
+		btnLimparCarrinho.setAttribute('onclick', 'popupLimparCarrinho()');
+		boxTitulo.appendChild(btnLimparCarrinho);
 		let separador = document.createElement('hr');
-		boxTitulo.appendChild(separador);
 		boxProdutos.appendChild(boxTitulo);
+		boxProdutos.appendChild(separador);
 		boxConteudo.appendChild(boxProdutos);
 		let boxTotal = document.createElement('div');
 		boxTotal.id = 'total-carrinho';
@@ -93,7 +99,7 @@ function mostraCarrinho() {
 	}
 
 	let carrinho = new XMLHttpRequest();
-	carrinho.open('GET', '/ecommerce/php/view/requests/buscaProduto.php?user_busca=carrinho', true);
+	carrinho.open('GET', '/ecommerce/php/view/requests/gerenciador_carrinho.php?acao=visualizar', true);
 	carrinho.send();
 
 	carrinho.onreadystatechange = () => {
@@ -102,6 +108,21 @@ function mostraCarrinho() {
 			let boxProdutos = document.getElementById('conteudo-carrinho');
 
 			let somaProdutos = 0;
+			if (!carrinho.produtos.length) {
+				let btnFinalizarCompra = document.getElementById('btn-finalizar-compra');
+				let btnLimparCarrinho = document.getElementById('btn-limpar-carrinho');
+				btnFinalizarCompra.style.opacity = .5;
+				btnFinalizarCompra.disabled = true;
+				btnLimparCarrinho.style.opacity = .5;
+				btnLimparCarrinho.disabled = true;
+			} else {
+				let btnFinalizarCompra = document.getElementById('btn-finalizar-compra');
+				let btnLimparCarrinho = document.getElementById('btn-limpar-carrinho');
+				btnFinalizarCompra.style.opacity = 1;
+				btnFinalizarCompra.disabled = false;
+				btnLimparCarrinho.style.opacity = 1;
+				btnLimparCarrinho.disabled = false;
+			}
 			carrinho.produtos.forEach(produto => {
 				somaProdutos += produto.valor * produto.qntd_produto;
 				let boxProduto = document.createElement('div');
@@ -110,7 +131,7 @@ function mostraCarrinho() {
 
 				let imagemProduto = document.createElement('img');
 				imagemProduto.id = 'imagem-produto';
-				imagemProduto.src = produto.imagens[0].caminho;
+				imagemProduto.src = produto.imagem;
 				boxProduto.appendChild(imagemProduto);
 
 				let nomeValorProduto = document.createElement('div');
@@ -222,11 +243,11 @@ function verificaAcaoRemover(prod_id, acao) {
 
 function popupConfirmarCompra() {
 	criarPopup('Confirme sua compra', '');
-	let botoes = [['Cancelar', 'btn-cancelar', 'fecharPopup()'], ['Confirmar', 'btn-confirmar', 'fecharPopup()']];
+	let botoes = [['Cancelar', 'btn-cancelar', 'fecharPopup()'], ['Confirmar', 'btn-confirmar', 'finalizarPedido()']];
 	criarBotoes(botoes);
 
 	let carrinhoFinal = new XMLHttpRequest();
-	carrinhoFinal.open('GET', '/ecommerce/php/view/requests/buscaProduto.php?user_busca=carrinho', true);
+	carrinhoFinal.open('GET', '/ecommerce/php/view/requests/gerenciador_carrinho.php?acao=visualizar', true);
 	carrinhoFinal.send();
 
 	carrinhoFinal.onreadystatechange = () => {
@@ -307,6 +328,40 @@ function popupConfirmarCompra() {
 			valorTotal.innerText = 'R$ ' + somaProdutos.toFixed(2).replace('.', ',');
 			total.appendChild(valorTotal);
 			popupConteudo.appendChild(total);
+		}
+	}
+}
+
+function finalizarPedido() {
+	let fazerPedido = new XMLHttpRequest();
+	fazerPedido.open('GET', '/ecommerce/php/view/requests/gerenciador_carrinho.php?acao=fazerPedido', true);
+	fazerPedido.send();
+
+	fazerPedido.onreadystatechange = () => {
+		if (fazerPedido.readyState == fazerPedido.DONE) {
+			fecharPopup();
+			criarPopup('Compra finalizada', '');
+			criarBotoes([['Fechar', 'btn-confirmar', 'fecharPopup()']]);
+			mostraCarrinho();
+		}
+	}
+}
+
+function popupLimparCarrinho() {
+	criarPopup('Você tem certeza?', 'Remover todos os produtos do carrinho');
+	let botoes = [['Cancelar', 'btn-cancelar', 'fecharPopup()'], ['Confirmar', 'btn-confirmar', 'limparCarrinho()']];
+	criarBotoes(botoes);
+}
+
+function limparCarrinho() {
+	let limpar = new XMLHttpRequest();
+	limpar.open('GET', '/ecommerce/php/view/requests/gerenciador_carrinho.php?acao=limparCarrinho', true);
+	limpar.send();
+
+	limpar.onreadystatechange = () => {
+		if (limpar.readyState == limpar.DONE) {
+			mostraCarrinho();
+			fecharPopup();
 		}
 	}
 }

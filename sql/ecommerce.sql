@@ -56,3 +56,21 @@ CREATE TABLE IF NOT EXISTS user_cart (
 	id_produto INT REFERENCES produtos(id),
 	qntd_produto INT
 );
+
+-- Tabela de pedidos
+CREATE TABLE IF NOT EXISTS pedidos (
+	id_pedido INT AUTO_INCREMENT PRIMARY KEY,
+	id_usuario VARCHAR(30),
+	valor FLOAT,
+	data_pedido DATETIME
+);
+
+-- Tabela de produtos pedidos
+CREATE TABLE IF NOT EXISTS produtos_pedidos (
+	id_pedido INT REFERENCES pedidos(id_pedido),
+	ref_prod INT,
+	nome_produto VARCHAR(100),
+	qntd_pedido INT,
+	valor_unit FLOAT,
+	valor_total FLOAT
+);

@@ -35,7 +35,7 @@ form {
 	height: 100%;
 }
 
-form input, select {
+form input, select, #btn-select-tags {
 	background-color: var(--secondary-color);
 	color: var(--color-3);
 	padding: 10px;
@@ -43,6 +43,13 @@ form input, select {
 	width: calc(100% - 24px);
 	border: 1px solid var(--tertiary-color);
 	border-radius: 5px;
+}
+
+option {
+	background-color: var(--primary-color);
+	color: var(--color-1);
+	padding: 5px 10px;
+	font-size: 14px;
 }
 
 .duas-colunas input, select {
@@ -79,4 +86,54 @@ input::placeholder {
 	top: 10px;
 	right: 80px;
 	cursor: pointer;
+}
+
+#div-select-tags {
+	display: flex;
+	width: 45%;
+}
+
+#dropdown-options-tags {
+	display: none;
+	flex-direction: column;
+	position: absolute;
+	background-color: var(--primary-color);
+	color: var(--color-1);
+	margin-top: 40px;
+	max-width: 300px;
+	max-height: 150px;
+	overflow: hidden auto;
+	border-radius: 5px;
+}
+
+.option {
+	display: flex;
+	padding: 5px 10px;
+	justify-content: space-between;
+}
+
+.option:hover {
+	background-color: var(--table-hover);
+	color: var(--color-4);
+}
+
+#check-option {
+	display: none;
+	justify-content: center;
+	align-items: center;
+	width: 18px;
+	height: 18px;
+}
+
+#search-tags {
+	width: 90%;
+	margin-bottom: 0;
+}
+
+#select-tags {
+	display: none;
+}
+
+#btn-select-tags {
+	background-color: var(--secondary-color);
 }

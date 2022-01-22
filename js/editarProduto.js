@@ -24,14 +24,28 @@ function editarProduto() {
 	let busca = new XMLHttpRequest();
 
 	busca.onreadystatechange = () => {
-		response = JSON.parse(busca.responseText);
-
-		document.getElementById('input-nome').value = response.produto.nome;
-		document.getElementById('input-valor').value = response.produto.valor;
-		document.getElementById('input-estoque').value = response.produto.estoque;
-		document.getElementById('c' + response.produto.categoria[0].id).selected = true;
-		response.produto.tags.forEach(tag => document.getElementById('t' + tag.id).selected = true);
-		listaImagensPermanecentes();
+		if (busca.readyState == busca.DONE) {
+			response = JSON.parse(busca.responseText);
+			
+			document.getElementById('input-nome').value = response.produto.nome;
+			document.getElementById('input-valor').value = response.produto.valor;
+			document.getElementById('input-estoque').value = response.produto.estoque;
+			document.getElementById('c' + response.produto.categoria[0].id).selected = true;
+			response.produto.tags.forEach(tag => {
+				document.getElementById('t' + tag.id).selected = true;
+				document.querySelector('#drop-t' + tag.id + ' #check-option').style.display = 'flex';
+			});
+			let n_tags = response.produto.tags.length;
+			if (n_tags) {
+				tagsChecked = n_tags;
+				if (tagsChecked > 1) {
+					document.getElementById('btn-select-tags').innerText = tagsChecked + ' tags selecionadas';
+				} else {
+					document.getElementById('btn-select-tags').innerText = tagsChecked + ' tag selecionada';
+				}
+			}
+			listaImagensPermanecentes();
+		}
 	}
 
 	busca.open('GET', '/ecommerce/php/view/requests/buscaProduto.php?edicao=1&id=' + id_prod, true);

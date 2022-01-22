@@ -52,6 +52,22 @@ function paginaNovoProduto() {
 	inputTags.multiple = 'true';
 	inputTags.required = 'true';
 	duasColunas2.appendChild(inputTags);
+	let divSelectTags = document.createElement('div');
+	divSelectTags.id = 'div-select-tags';
+	let btnSelectTags = document.createElement('span');
+	btnSelectTags.id = 'btn-select-tags';
+	btnSelectTags.setAttribute('onclick', 'dropdownTags()');
+	btnSelectTags.innerText = 'Tags';
+	divSelectTags.appendChild(btnSelectTags);
+	let divDropdownTags = document.createElement('div');
+	divDropdownTags.id = 'dropdown-options-tags';
+	let searchTags = document.createElement('input');
+	searchTags.id = 'search-tags';
+	searchTags.setAttribute('onkeyup', 'buscaTags()');
+	searchTags.placeholder = 'Pesquise aqui';
+	divDropdownTags.appendChild(searchTags);
+	divSelectTags.appendChild(divDropdownTags);
+	duasColunas2.appendChild(divSelectTags);
 	form.appendChild(duasColunas2);
 
 	let inputThumb = document.createElement('input');
@@ -102,6 +118,46 @@ function paginaNovoProduto() {
 	insereTags();
 }
 
+function selecionaTag(id) {
+	let opcao = document.getElementById('t' + id).selected;
+	if (opcao) {
+		document.getElementById('t' + id).selected = false;
+		document.querySelector('#drop-t' + id + ' #check-option').style.display = 'none';
+		--tagsChecked;
+	} else {
+		document.getElementById('t' + id).selected = true;
+		document.querySelector('#drop-t' + id + ' #check-option').style.display = 'flex';
+		++tagsChecked;
+	}
+
+	if (tagsChecked) {
+		if (tagsChecked > 1) {
+			document.getElementById('btn-select-tags').innerText = tagsChecked + ' tags selecionadas';
+		} else {
+			document.getElementById('btn-select-tags').innerText = tagsChecked + ' tag selecionada';
+		}
+	} else {
+		document.getElementById('btn-select-tags').innerText = 'Nenhuma tag selecionada';
+	}
+}
+
+function dropdownTags() {
+	let menu = document.getElementById('dropdown-options-tags').style.display;
+	document.getElementById('dropdown-options-tags').style.display = menu == 'flex' ? 'none' : 'flex';
+}
+
+function buscaTags() {
+	let busca = document.getElementById('search-tags').value.toLowerCase();
+	document.querySelectorAll('#dropdown-options-tags .option').forEach(option => {
+		let label = option.innerText.toLowerCase()
+		if (label.includes(busca)) {
+			option.style.display = 'flex';
+		} else {
+			option.style.display='none'
+		}
+	});
+}
+
 function insereCategorias() {
 	let select = document.getElementById('select-categoria');
 	let request = new XMLHttpRequest();
@@ -131,19 +187,34 @@ function insereTags() {
 	let request = new XMLHttpRequest();
 
 	request.onreadystatechange = () => {
-		if (document.querySelectorAll('#select-tags option').length > 0) {
-			document.querySelectorAll('#select-tags option').forEach(element => element.remove());
+		if (request.readyState == request.DONE) {
+			if (document.querySelectorAll('#select-tags option').length > 0) {
+				document.querySelectorAll('#select-tags option').forEach(element => element.remove());
+			}
+			let response = JSON.parse(request.responseText);
+
+			let dropdownTags = document.getElementById('dropdown-options-tags');
+			response.tags.forEach(tag => {
+				let option = document.createElement('option');
+				option.id = 't'+ tag.id;
+				option.value = tag.id;
+				select.appendChild(option);
+
+				let optionSpan = document.createElement('span');
+				optionSpan.className = 'option';
+				optionSpan.id = 'drop-t' + tag.id;
+				optionSpan.setAttribute('onclick', 'selecionaTag(' + tag.id + ')');
+				let labelOption = document.createElement('span');
+				labelOption.id = 'label-option';
+				labelOption.innerText = tag.nome[0].toUpperCase() + tag.nome.slice(1).toLowerCase();
+				optionSpan.appendChild(labelOption);
+				let checkOption = document.createElement('span');
+				checkOption.id = 'check-option';
+				checkOption.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+				optionSpan.appendChild(checkOption);
+				dropdownTags.appendChild(optionSpan);
+			});
 		}
-		let response = JSON.parse(request.responseText);
-	
-		response.tags.forEach(tag => {
-			let nome = tag.nome[0].toUpperCase() + tag.nome.slice(1).toLowerCase();
-			let option = document.createElement('option');
-			option.id = 't'+ tag.id;
-			option.value = tag.id;
-			option.innerText = nome;
-			select.appendChild(option);
-		});
 	}
 
 	request.open('GET', '/ecommerce/php/view/requests/buscaCategoriasTags.php?tipo=tags', true);
@@ -275,3 +346,4 @@ function diminui() {
 }
 
 var index_img = 0;
+var tagsChecked = 0;

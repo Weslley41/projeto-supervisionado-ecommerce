@@ -167,3 +167,14 @@ a, a:hover, a:focus, a:active {
 	background-color: var(--color-1);
 	color: var(--color-4);
 }
+
+::-webkit-scrollbar {
+	background-color: transparent;
+	width: 12px;
+}
+
+::-webkit-scrollbar-thumb {
+	margin-top: 50px;
+	background-color: var(--table-hover);
+	border-radius: 8px;
+}

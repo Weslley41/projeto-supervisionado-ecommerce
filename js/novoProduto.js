@@ -100,7 +100,7 @@ function paginaNovoProduto() {
 	let btn_reset = document.createElement('button');
 	btn_reset.className = 'btn-padrao';
 	btn_reset.type = 'reset';
-	btn_reset.setAttribute('onclick', 'limpaPreview()');
+	btn_reset.setAttribute('onclick', 'limpaPreview();limpaTags()');
 	btn_reset.innerText = 'Limpar';
 	duasColunasBotoes.appendChild(btn_reset);
 	let btn_confirm = document.createElement('button');
@@ -139,6 +139,12 @@ function selecionaTag(id) {
 	} else {
 		document.getElementById('btn-select-tags').innerText = 'Nenhuma tag selecionada';
 	}
+}
+
+function limpaTags() {
+	tagsChecked = 0;
+	document.getElementById('btn-select-tags').innerText = 'Nenhuma tag selecionada';
+	document.querySelectorAll('#dropdown-options-tags #check-option').forEach(option => option.style.display = 'none');
 }
 
 function dropdownTags() {
@@ -309,8 +315,10 @@ function previewImagens() {
 
 function limpaPreview() {
 	let preview = document.getElementById('box-imagens');
-	preview.style.display = 'none';
-	index_img = 0;
+	if (preview) {
+		preview.style.display = 'none';
+		index_img = 0;
+	}
 }
 
 function controladorBotoes(len) {

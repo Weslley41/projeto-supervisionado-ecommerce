@@ -46,7 +46,7 @@ select {
 	border-bottom: 1px solid var(--primary-color);
 	padding-bottom: 5px;
 	margin-bottom: 10px;
-	border-radius: 10px;
+	border-radius: 10px 10px 0 0;
 }
 
 .div-tbody {

@@ -20,6 +20,9 @@
 
 #tabela-dupla {
 	display: flex;
+	background-color: var(--primary-color);
+	padding-bottom: 15px;
+	border-radius: 10px;
 }
 
 .tabela-unica {

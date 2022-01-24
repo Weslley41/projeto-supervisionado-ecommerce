@@ -5,6 +5,10 @@
 	outline: none;
 }
 
+#btn-filtro {
+	display: none;
+}
+
 input[type="text"] {
 	padding: 1px 0;
 }

@@ -124,6 +124,6 @@ function aplicarFiltro() {
 			});
 		}
 
-		window.location.search = str_filtro;
+		window.location.href = '/ecommerce/php/view/user/busca.php' + str_filtro;
 	}
 }

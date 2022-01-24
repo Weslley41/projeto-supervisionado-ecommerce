@@ -20,7 +20,7 @@
 
 #tabela-dupla {
 	display: flex;
-	background-color: var(--primary-color);
+	background-color: var(--bg-table-2);
 	padding-bottom: 15px;
 	border-radius: 10px;
 }

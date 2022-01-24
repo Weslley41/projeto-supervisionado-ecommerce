@@ -30,18 +30,18 @@ function editarProduto() {
 			document.getElementById('input-nome').value = response.produto.nome;
 			document.getElementById('input-valor').value = response.produto.valor;
 			document.getElementById('input-estoque').value = response.produto.estoque;
-			document.getElementById('c' + response.produto.categoria[0].id).selected = true;
+			selecionaOption('select-categoria', 'c' + response.produto.categoria[0].id, false);
 			response.produto.tags.forEach(tag => {
 				document.getElementById('t' + tag.id).selected = true;
-				document.querySelector('#drop-t' + tag.id + ' #check-option').style.display = 'flex';
+				document.querySelector('#drop-t' + tag.id + ' .check-option').style.display = 'flex';
 			});
 			let n_tags = response.produto.tags.length;
 			if (n_tags) {
 				tagsChecked = n_tags;
 				if (tagsChecked > 1) {
-					document.getElementById('btn-select-tags').innerText = tagsChecked + ' tags selecionadas';
+					document.querySelector('#div-select-tags .btn-select').innerText = tagsChecked + ' tags selecionadas';
 				} else {
-					document.getElementById('btn-select-tags').innerText = tagsChecked + ' tag selecionada';
+					document.querySelector('#div-select-tags .btn-select').innerText = tagsChecked + ' tag selecionada';
 				}
 			}
 			listaImagensPermanecentes();

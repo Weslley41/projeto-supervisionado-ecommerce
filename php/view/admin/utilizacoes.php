@@ -13,11 +13,13 @@
 	<link rel="stylesheet" href="../../../css/header.css">
 	<link rel="stylesheet" href="../../../css/tabela.css">
 	<link rel="stylesheet" href="../../../css/header_admin.css">
-	<link rel="stylesheet" href="../../../css/utilizacoes.css">
 	<link rel="stylesheet" href="../../../css/switch_theme.css">
 	<link rel="stylesheet" href="../../../css/btn_padrao.css">
 	<link rel="stylesheet" href="../../../css/popup.css">
+	<link rel="stylesheet" href="../../../css/select.css">
+	<link rel="stylesheet" href="../../../css/utilizacoes.css">
 	<!-- JS -->
+	<script src="../../../js/select.js"></script>
 	<script src="../../../js/popup.js"></script>
 	<script src="../../../js/utilizacoes.js"></script>
 	<script src="../../../js/editarProduto.js"></script>

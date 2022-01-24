@@ -4,53 +4,44 @@ function criarTabelaUtilizacoes() {
 		let boxConteudo = document.createElement('div');
 		boxConteudo.id = 'box-conteudo';
 
-		let tabela = document.createElement('table');
+		let tabela = document.createElement('div');
+		tabela.className = 'div-table';
 
-		let cabecalhoTabela = document.createElement('thead');
-		let tituloTabela = document.createElement('tr');
+		let cabecalhoTabela = document.createElement('div');
+		cabecalhoTabela.className = 'div-thead';
+		let tituloTabela = document.createElement('span');
+		tituloTabela.className = 'span-tr';
 		let titulo = document.createElement('th');
+		titulo.className = 'span-th';
 		titulo.id = 'titulo-tabela';
 		titulo.colSpan = 7;
 		titulo.innerText = 'Utilizações de categorias e tags em produtos';
 		tituloTabela.appendChild(titulo);
 		cabecalhoTabela.appendChild(tituloTabela);
 
-		let inputsFiltros = document.createElement('tr');
+		let inputsFiltros = document.createElement('span');
+		inputsFiltros.className = 'span-tr';
 		inputsFiltros.id = 'input-filtros';
-		let thInputs = document.createElement('th');
+		let thInputs = document.createElement('span');
+		thInputs.className = 'span-th';
+		thInputs.id = 'th-inputs';
 		thInputs.colSpan = 7;
-		let inputTipo = document.createElement('select');
-		inputTipo.id = 'input-tipo';
-		inputTipo.setAttribute('onchange', 'preencheValues()');
-		let optionCategoria = document.createElement('option');
-		optionCategoria.value = 'categorias';
-		optionCategoria.innerText = 'Categorias';
-		let optionTag = document.createElement('option');
-		optionTag.value = 'tags';
-		optionTag.innerText = 'Tags';
-		inputTipo.appendChild(optionCategoria);
-		inputTipo.appendChild(optionTag);
-		thInputs.appendChild(inputTipo);
-
-		let inputValue = document.createElement('select');
-		inputValue.id = 'input-value';
-		inputValue.setAttribute('onchange', 'exibirProdutos()');
-		thInputs.appendChild(inputValue);
-
 		let qntdResultados = document.createElement('span');
 		qntdResultados.id = 'qntd-resultados';
 		thInputs.appendChild(qntdResultados);
 		inputsFiltros.appendChild(thInputs);
 		cabecalhoTabela.appendChild(inputsFiltros);
 
-		let labels = document.createElement('tr');
+		let labels = document.createElement('span');
+		labels.className = 'span-tr';
 		labels.id = 'labels';
 		let lista_labels = [
 			'ID', 'Nome', 'Categoria', 'Tag',
 			'Estoque', 'Editar', 'Excluir'
 		];
 		lista_labels.forEach(label => {
-			let th = document.createElement('th');
+			let th = document.createElement('span');
+			th.className = 'span-th';
 			th.id = 'coluna-'+label.toLowerCase();
 			th.innerText = label;
 			labels.appendChild(th)
@@ -58,37 +49,86 @@ function criarTabelaUtilizacoes() {
 		cabecalhoTabela.appendChild(labels);
 		
 		tabela.appendChild(cabecalhoTabela);
-		let tbody = document.createElement('tbody');
+		let tbody = document.createElement('div');
+		tbody.className = 'div-tbody';
 		tabela.appendChild(tbody);
 
 		boxConteudo.appendChild(tabela);
 		body.appendChild(boxConteudo);
 	}
 
+	criarSelect('#th-inputs', 'input-value', 'Escolha', 'input-value', false, true);
+	criarSelect('#th-inputs', 'input-tipo', 'Tipo', 'input-tipo', false, false);
+	let inputTipo = document.getElementById('input-tipo');
+	opcoes = ['Categorias', 'Tags'];
+	let dropdownTipos = document.querySelector('#div-input-tipo .dropdown-options');
+	opcoes.forEach(opcao => {
+		let selectOption = document.createElement('option');
+		selectOption.value = opcao.toLowerCase();
+		selectOption.id = opcao.toLowerCase();
+		selectOption.innerText = opcao;
+		inputTipo.appendChild(selectOption);
+
+		let optionSpan = document.createElement('span');
+		optionSpan.className = 'option';
+		optionSpan.id = 'drop-' + opcao.toLowerCase();
+		optionSpan.setAttribute('onclick', 'selecionaOption("input-tipo", "' + opcao.toLowerCase() + '", false);preencheValues()');
+		let labelOption = document.createElement('span');
+		labelOption.id = 'label-option';
+		labelOption.innerText = opcao;
+		optionSpan.appendChild(labelOption);
+		let checkOption = document.createElement('span');
+		checkOption.className = 'check-option';
+		checkOption.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+		optionSpan.appendChild(checkOption);
+		dropdownTipos.appendChild(optionSpan);
+	});
 	preencheValues();
 }
 
 function preencheValues() {
 	let tipo = document.getElementById('input-tipo');
 	tipo = tipo.options[tipo.selectedIndex].value;
-	
+	selecionaOption('input-tipo', tipo, false);
+
 	let selectValues = document.getElementById('input-value');
 	let options = new XMLHttpRequest();
 	options.onreadystatechange = () => {
-		if (document.querySelectorAll('#input-value option').length > 0) {
-			document.querySelectorAll('#input-value option').forEach(element => { element.remove() })
+		if (options.readyState == options.DONE) {
+			if (document.querySelectorAll('#input-value option').length > 0) {
+				document.querySelectorAll('#input-value option').forEach(element => { element.remove() })
+				document.querySelectorAll('#div-input-value .dropdown-options .option').forEach(element => { element.remove() })
+			}
+			let response = JSON.parse(options.responseText);
+
+			let dropdownValues = document.querySelector('#div-input-value .dropdown-options');
+			response[tipo].forEach(opcao => {
+				let option = document.createElement('option');
+				option.value = opcao.id;
+				option.id = 'o' + opcao.id;
+				option.innerText = capitalize(opcao.nome);
+				selectValues.appendChild(option);
+				
+				let optionSpan = document.createElement('span');
+				optionSpan.className = 'option';
+				optionSpan.id = 'drop-o' + opcao.id;
+				optionSpan.setAttribute('onclick', 'selecionaOption("input-value", "o' + opcao.id + '", false);exibirProdutos()');
+				let labelOption = document.createElement('span');
+				labelOption.id = 'label-option';
+				labelOption.innerText = capitalize(opcao.nome);
+				optionSpan.appendChild(labelOption);
+				let checkOption = document.createElement('span');
+				checkOption.className = 'check-option';
+				checkOption.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+				optionSpan.appendChild(checkOption);
+				dropdownValues.appendChild(optionSpan);
+			});
+			
+			exibirProdutos();
+			let selectedOption = document.getElementById('input-value');
+			selectedOption = selectedOption.options[selectedOption.selectedIndex].id;
+			selecionaOption('input-value', selectedOption, false);
 		}
-		let response = JSON.parse(options.responseText);
-
-		response[tipo].forEach(valor => {
-			let option = document.createElement('option');
-			option.value = valor.id;
-			option.setAttribute('onclick', 'alert(' + option.nome + ')')
-			option.innerText = valor.nome[0].toUpperCase() + valor.nome.slice(1).toLowerCase();
-			selectValues.appendChild(option);
-		})
-
-		exibirProdutos();
 	}
 
 	options.open('GET', '/ecommerce/php/view/requests/buscaCategoriasTags.php?tipo=' + tipo, true);
@@ -106,19 +146,21 @@ function exibirProdutos() {
 
 	let corpoTabela = new XMLHttpRequest();
 	corpoTabela.onreadystatechange = () => {
-		if (document.querySelector('tbody').innerHTML != '') {
-			document.querySelector('tbody').innerHTML = '';
+		if (document.querySelector('.div-tbody').innerHTML != '') {
+			document.querySelector('.div-tbody').innerHTML = '';
 		}
 
 		let response = JSON.parse(corpoTabela.responseText);
 		document.getElementById('qntd-resultados').innerText = response.quantidade + ' Resultados encontrados';
 
-		let tbody = document.querySelector('tbody');
+		let tbody = document.querySelector('.div-tbody');
 		let lista_labels = ['id', 'nome', 'categoria', 'tag', 'estoque'];
 		response.produtos.forEach(produto => {
-			let tr = document.createElement('tr');
+			let tr = document.createElement('span');
+			tr.className = 'span-tr';
 			lista_labels.forEach(coluna => {
-				let td = document.createElement('td');
+				let td = document.createElement('span');
+				td.className = 'span-td';
 				td.id = 'coluna-' + coluna;
 				if (coluna == 'tag') {
 					let tags = formata(produto, coluna);
@@ -129,12 +171,14 @@ function exibirProdutos() {
 				}
 				tr.appendChild(td);
 			});
-			let editar = document.createElement('td');
+			let editar = document.createElement('span');
+			editar.className = 'span-td';
 			editar.id = 'coluna-editar';
 			editar.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>';
 			editar.setAttribute('onclick', 'window.location.href="editar_produto.php?id=' + produto.id + '"');
 			tr.appendChild(editar);
-			let excluir = document.createElement('td');
+			let excluir = document.createElement('span');
+			excluir.className = 'span-td';
 			excluir.id = 'coluna-excluir';
 			excluir.setAttribute('onclick', 'popupExcluirProduto(' + produto.id + ',"' + capitalize(produto.nome) + '")');
 			excluir.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-square"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="9" x2="15" y2="15"></line><line x1="15" y1="9" x2="9" y2="15"></line></svg>';
@@ -187,3 +231,13 @@ function capitalize(nome) {
 	return nome[0].toUpperCase() + nome.slice(1).toLowerCase();
 }
 
+document.addEventListener('click', function(event) {
+	let inputs = ['div-input-tipo', 'div-input-value'];
+	inputs.forEach(input => {
+		let ignorar = document.getElementById(input);
+		let clicado = ignorar.contains(event.target);
+		if (!clicado) {
+			dropdownOptions(input, true);
+		}
+	});
+});

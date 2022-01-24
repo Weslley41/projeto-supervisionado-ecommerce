@@ -11,24 +11,6 @@
 	align-items: center;
 }
 
-table {
-	display: table-row;
-	width: 90%;
-	height: 470px;
-	margin-top: 20px;
-	background-color: var(--bg-table-2);
-	border-radius: 10px;
-	box-shadow: 0 0 10px var(--color-shadow);
-}
-
-thead {
-	text-align: left;
-}
-
-td {
-	height: 20px;
-}
-
 select {
 	background-color: var(--secondary-color);
 	color: var(--color-3);
@@ -41,6 +23,130 @@ select {
 
 #qntd-resultados {
 	margin-left: 15px;
+}
+
+.div-table {
+	display: table-row;
+	width: 90%;
+	height: 470px;
+	margin-top: 20px;
+	background-color: var(--bg-table-2);
+	border-radius: 10px;
+	padding-bottom: 15px;
+	box-shadow: 0 0 10px var(--color-shadow);
+}
+
+.div-thead {
+	display: flex;
+	flex-direction: column;
+	text-align: left;
+	background-color: var(--primary-color);
+	color: var(--color-1);
+	width: 100%;
+	border-bottom: 1px solid var(--primary-color);
+	padding-bottom: 5px;
+	margin-bottom: 10px;
+	border-radius: 10px;
+}
+
+.div-tbody {
+	color: var(--color-3);
+}
+
+.span-th {
+	text-align: center;
+}
+
+.span-td {
+	text-align: center;
+	height: 20px;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.span-tr {
+	display: flex;
+	height: 30px;
+	width: 100%;
+}
+
+.div-tbody .span-tr:nth-child(odd) {
+	background-color: var(--bg-table-1);
+	color: var(--color-text-table-body);
+}
+
+.div-tbody .span-tr:nth-child(even) {
+	background-color: var(--bg-table-2);
+	color: var(--color-text-table-body);
+}
+
+.div-tbody .span-tr:hover {
+	background-color: var(--table-hover);
+	color: var(--color-4);
+}
+
+#titulo-tabela {
+	width: 100%;
+	text-align: left;
+}
+
+#input-filtros {
+	height: auto;
+}
+
+#th-inputs {
+	display: flex;
+	flex-direction: row-reverse;
+	align-items: center;
+	padding: 10px;
+}
+
+.btn-select {
+	margin: 0 10px;
+	padding-left: 15px;
+	text-align: left;
+}
+
+#qntd-resultados {
+	width: 300px;
+}
+
+#labels {
+	align-items: center;
+	font-weight: bold;
+}
+
+.span-tr {
+	height: 40px
+}
+
+.span-th,
+.span-td {
+	height: 100%;
+	display: flex;
+	align-items: center;
+}
+
+#coluna-id,
+#coluna-estoque,
+#coluna-editar,
+#coluna-excluir {
+	width: 5%;
+	justify-content: center;
+}
+
+#coluna-nome {
+	width: 60%;
+}
+
+#coluna-categoria,
+#coluna-tag {
+	width: 10%;
+}
+
+#coluna-editar,
+#coluna-excluir {
+	height: 30px;
 }
 
 #paginas {

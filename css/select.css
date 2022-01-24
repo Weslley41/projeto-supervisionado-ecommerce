@@ -1,0 +1,78 @@
+.btn-select {
+	background-color: var(--secondary-color);
+	color: var(--color-3);
+	padding: 10px;
+	margin-bottom: 15px;
+	width: calc(100% - 24px);
+	border: 1px solid var(--tertiary-color);
+	border-radius: 5px;
+}
+
+.div-select {
+	display: flex;
+	width: 45%;
+	cursor: pointer;
+}
+
+.dropdown-options {
+	display: none;
+	flex-direction: column;
+	position: absolute;
+	background-color: var(--primary-color);
+	color: var(--color-1);
+	margin-top: 40px;
+	min-width: 200px;
+	max-width: 300px;
+	max-height: 150px;
+	overflow: hidden auto;
+	border-radius: 5px;
+}
+
+.option {
+	display: flex;
+	padding: 8px 10px;
+	justify-content: space-between;
+}
+
+.option:hover {
+	background-color: var(--table-hover);
+	color: var(--color-4);
+}
+
+.check-option {
+	display: none;
+	justify-content: center;
+	align-items: center;
+	width: 18px;
+	height: 18px;
+}
+
+.search-options {
+	min-width: 200px;
+	max-width: 300px;
+	margin-bottom: 0;
+}
+
+select {
+	display: none;
+}
+
+.btn-select {
+	background-color: var(--secondary-color);
+}
+
+.search-options {
+	background-color: var(--secondary-color);
+	color: var(--color-3);
+	padding: 10px;
+	margin-bottom: 15px;
+	width: calc(100% - 24px);
+	border: 1px solid var(--tertiary-color);
+	border-radius: 5px;
+}
+
+option {
+	background-color: var(--primary-color);
+	color: var(--color-1);
+	font-size: 14px;
+}

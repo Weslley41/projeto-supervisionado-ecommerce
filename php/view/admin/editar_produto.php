@@ -15,7 +15,9 @@
 	<link rel="stylesheet" href="../../../css/switch_theme.css">
 	<link rel="stylesheet" href="../../../css/btn_padrao.css">
 	<link rel="stylesheet" href="../../../css/novo_produto.css">
+	<link rel="stylesheet" href="../../../css/select.css">
 	<!-- JS -->
+	<script src="../../../js/select.js"></script>
 	<script src="../../../js/novoProduto.js"></script>
 	<script src="../../../js/editarProduto.js"></script>
 </head>

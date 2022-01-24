@@ -23,6 +23,7 @@ function paginaNovoProduto() {
 	form.appendChild(inputNome);
 	let duasColunas1 = document.createElement('span');
 	duasColunas1.className = 'duas-colunas';
+	duasColunas1.id = 'valor-categoria';
 	let inputValor = document.createElement('input');
 	inputValor.name = 'valor';
 	inputValor.id = 'input-valor';
@@ -31,14 +32,10 @@ function paginaNovoProduto() {
 	inputValor.required = 'true';
 	inputValor.placeholder = 'Valor';
 	duasColunas1.appendChild(inputValor);
-	let inputCategoria = document.createElement('select');
-	inputCategoria.id = 'select-categoria';
-	inputCategoria.name = 'categoria'	
-	inputCategoria.required = 'true';
-	duasColunas1.appendChild(inputCategoria);
 	form.appendChild(duasColunas1);
 	let duasColunas2 = document.createElement('span');
 	duasColunas2.className = 'duas-colunas';
+	duasColunas2.id = 'estoque-tags';
 	let inputEstoque = document.createElement('input');
 	inputEstoque.name = 'estoque';
 	inputEstoque.id = 'input-estoque';
@@ -46,28 +43,6 @@ function paginaNovoProduto() {
 	inputEstoque.type = 'number';
 	inputEstoque.required = 'true';
 	duasColunas2.appendChild(inputEstoque);
-	let inputTags = document.createElement('select');
-	inputTags.id = 'select-tags';
-	inputTags.name = 'tag[]';
-	inputTags.multiple = 'true';
-	inputTags.required = 'true';
-	duasColunas2.appendChild(inputTags);
-	let divSelectTags = document.createElement('div');
-	divSelectTags.id = 'div-select-tags';
-	let btnSelectTags = document.createElement('span');
-	btnSelectTags.id = 'btn-select-tags';
-	btnSelectTags.setAttribute('onclick', 'dropdownTags()');
-	btnSelectTags.innerText = 'Tags';
-	divSelectTags.appendChild(btnSelectTags);
-	let divDropdownTags = document.createElement('div');
-	divDropdownTags.id = 'dropdown-options-tags';
-	let searchTags = document.createElement('input');
-	searchTags.id = 'search-tags';
-	searchTags.setAttribute('onkeyup', 'buscaTags()');
-	searchTags.placeholder = 'Pesquise aqui';
-	divDropdownTags.appendChild(searchTags);
-	divSelectTags.appendChild(divDropdownTags);
-	duasColunas2.appendChild(divSelectTags);
 	form.appendChild(duasColunas2);
 
 	let inputThumb = document.createElement('input');
@@ -100,7 +75,7 @@ function paginaNovoProduto() {
 	let btn_reset = document.createElement('button');
 	btn_reset.className = 'btn-padrao';
 	btn_reset.type = 'reset';
-	btn_reset.setAttribute('onclick', 'limpaPreview();limpaTags()');
+	btn_reset.setAttribute('onclick', 'limpaPreview();limpaOptions()');
 	btn_reset.innerText = 'Limpar';
 	duasColunasBotoes.appendChild(btn_reset);
 	let btn_confirm = document.createElement('button');
@@ -114,54 +89,10 @@ function paginaNovoProduto() {
 	content.appendChild(form);
 	boxConteudo.appendChild(content);
 	body.appendChild(boxConteudo);
+	criarSelect('#valor-categoria', 'categoria', 'Categorias', 'select-categoria', false, true);
+	criarSelect('#estoque-tags', 'tag[]', 'Tags', 'select-tags', true, true);
 	insereCategorias();
 	insereTags();
-}
-
-function selecionaTag(id) {
-	let opcao = document.getElementById('t' + id).selected;
-	if (opcao) {
-		document.getElementById('t' + id).selected = false;
-		document.querySelector('#drop-t' + id + ' #check-option').style.display = 'none';
-		--tagsChecked;
-	} else {
-		document.getElementById('t' + id).selected = true;
-		document.querySelector('#drop-t' + id + ' #check-option').style.display = 'flex';
-		++tagsChecked;
-	}
-
-	if (tagsChecked) {
-		if (tagsChecked > 1) {
-			document.getElementById('btn-select-tags').innerText = tagsChecked + ' tags selecionadas';
-		} else {
-			document.getElementById('btn-select-tags').innerText = tagsChecked + ' tag selecionada';
-		}
-	} else {
-		document.getElementById('btn-select-tags').innerText = 'Nenhuma tag selecionada';
-	}
-}
-
-function limpaTags() {
-	tagsChecked = 0;
-	document.getElementById('btn-select-tags').innerText = 'Nenhuma tag selecionada';
-	document.querySelectorAll('#dropdown-options-tags #check-option').forEach(option => option.style.display = 'none');
-}
-
-function dropdownTags() {
-	let menu = document.getElementById('dropdown-options-tags').style.display;
-	document.getElementById('dropdown-options-tags').style.display = menu == 'flex' ? 'none' : 'flex';
-}
-
-function buscaTags() {
-	let busca = document.getElementById('search-tags').value.toLowerCase();
-	document.querySelectorAll('#dropdown-options-tags .option').forEach(option => {
-		let label = option.innerText.toLowerCase()
-		if (label.includes(busca)) {
-			option.style.display = 'flex';
-		} else {
-			option.style.display='none'
-		}
-	});
 }
 
 function insereCategorias() {
@@ -169,19 +100,36 @@ function insereCategorias() {
 	let request = new XMLHttpRequest();
 
 	request.onreadystatechange = () => {
-		if (document.querySelectorAll('#select-categoria option').length > 0) {
-			document.querySelectorAll('#select-categoria option').forEach(element => element.remove());
+		if (request.readyState == request.DONE) {
+			if (document.querySelectorAll('#select-categoria option').length > 0) {
+				document.querySelectorAll('#select-categoria option').forEach(element => element.remove());
+			}
+			let response = JSON.parse(request.responseText);
+		
+			response.categorias.forEach(categoria => {
+				let nome = categoria.nome[0].toUpperCase() + categoria.nome.slice(1).toLowerCase();
+				let option = document.createElement('option');
+				option.id = 'c' + categoria.id;
+				option.value = categoria.id;
+				option.innerText = nome;
+				select.appendChild(option);
+				
+				let dropdownCategorias = document.querySelector('#div-select-categoria .dropdown-options');
+				let optionSpan = document.createElement('span');
+				optionSpan.className = 'option';
+				optionSpan.id = 'drop-c' + categoria.id;
+				optionSpan.setAttribute('onclick', 'selecionaOption("select-categoria", "c' + categoria.id + '", false)');
+				let labelOption = document.createElement('span');
+				labelOption.id = 'label-option';
+				labelOption.innerText = categoria.nome[0].toUpperCase() + categoria.nome.slice(1).toLowerCase();
+				optionSpan.appendChild(labelOption);
+				let checkOption = document.createElement('span');
+				checkOption.className = 'check-option';
+				checkOption.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+				optionSpan.appendChild(checkOption);
+				dropdownCategorias.appendChild(optionSpan);
+			});
 		}
-		let response = JSON.parse(request.responseText);
-	
-		response.categorias.forEach(categoria => {
-			let nome = categoria.nome[0].toUpperCase() + categoria.nome.slice(1).toLowerCase();
-			let option = document.createElement('option');
-			option.id = 'c' + categoria.id;
-			option.value = categoria.id;
-			option.innerText = nome;
-			select.appendChild(option);
-		});
 	}
 
 	request.open('GET', '/ecommerce/php/view/requests/buscaCategoriasTags.php?tipo=categoria', true);
@@ -199,7 +147,7 @@ function insereTags() {
 			}
 			let response = JSON.parse(request.responseText);
 
-			let dropdownTags = document.getElementById('dropdown-options-tags');
+			let dropdownTags = document.querySelector('#div-select-tags .dropdown-options');
 			response.tags.forEach(tag => {
 				let option = document.createElement('option');
 				option.id = 't'+ tag.id;
@@ -209,13 +157,13 @@ function insereTags() {
 				let optionSpan = document.createElement('span');
 				optionSpan.className = 'option';
 				optionSpan.id = 'drop-t' + tag.id;
-				optionSpan.setAttribute('onclick', 'selecionaTag(' + tag.id + ')');
+				optionSpan.setAttribute('onclick', 'selecionaOption("select-tags", "t' + tag.id + '", true)');
 				let labelOption = document.createElement('span');
 				labelOption.id = 'label-option';
 				labelOption.innerText = tag.nome[0].toUpperCase() + tag.nome.slice(1).toLowerCase();
 				optionSpan.appendChild(labelOption);
 				let checkOption = document.createElement('span');
-				checkOption.id = 'check-option';
+				checkOption.className = 'check-option';
 				checkOption.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>';
 				optionSpan.appendChild(checkOption);
 				dropdownTags.appendChild(optionSpan);
@@ -354,4 +302,14 @@ function diminui() {
 }
 
 var index_img = 0;
-var tagsChecked = 0;
+
+document.addEventListener('click', function(event) {
+	let inputs = ['div-select-categoria', 'div-select-tags'];
+	inputs.forEach(input => {
+		let ignorar = document.getElementById(input);
+		let clicado = ignorar.contains(event.target);
+		if (!clicado) {
+			dropdownOptions(input, true);
+		}
+	});
+});

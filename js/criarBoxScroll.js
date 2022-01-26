@@ -16,16 +16,18 @@ function criarBoxSroll(localConteudo, tipo) {
 
 	let busca = new XMLHttpRequest();
 	busca.onreadystatechange = () => {
-		if (document.querySelector('.'+tipo.toLowerCase()) != null) {
-			document.querySelector('.'+tipo.toLowerCase()).innerHTML = '';
-			criarBotoesScroll(tipo.toLowerCase());
+		if (busca.readyState == busca.DONE) {
+			if (document.querySelector('.'+tipo.toLowerCase()) != null) {
+				document.querySelector('.'+tipo.toLowerCase()).innerHTML = '';
+				criarBotoesScroll(tipo.toLowerCase());
+			}
+			let response = JSON.parse(busca.responseText);
+			
+			response.produtos.forEach(produto => {
+				criarProduto(".produtos-scroll."+tipo.toLowerCase(), produto.id, produto.nome, produto.valor, produto.imagens[0].caminho);
+			});
+			scrollProd(0, tipo.toLowerCase());
 		}
-		let response = JSON.parse(busca.responseText);
-
-		response.produtos.forEach(produto => {
-			criarProduto(".produtos-scroll."+tipo.toLowerCase(), produto.id, produto.nome, produto.valor, produto.imagens[0].caminho);
-		});
-		scrollProd(0, tipo.toLowerCase());
 	}
 
 	busca.open('GET', '/ecommerce/php/view/requests/cardsProdutos.php?tipo='+tipo.toLowerCase(), true);

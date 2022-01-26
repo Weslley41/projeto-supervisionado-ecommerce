@@ -8,24 +8,25 @@ function buscarProdutos() {
 
 	let contentProdutos = new XMLHttpRequest();
 	contentProdutos.onreadystatechange = () =>  {
-		if (document.getElementById('resultados-busca') == null) {
-			criarSubtitleBusca();
-			let boxConteudo = document.getElementById('box-conteudo');
-			let resultadosBusca = document.createElement('div');
-			resultadosBusca.id = 'resultados-busca';
-			boxConteudo.appendChild(resultadosBusca);
-		} else {
-			document.getElementById('resultados-busca').innerHTML = '';
+		if (contentProdutos.readyState == contentProdutos.DONE) {
+			if (document.getElementById('resultados-busca') == null) {
+				criarSubtitleBusca();
+				let boxConteudo = document.getElementById('box-conteudo');
+				let resultadosBusca = document.createElement('div');
+				resultadosBusca.id = 'resultados-busca';
+				boxConteudo.appendChild(resultadosBusca);
+			} else {
+				document.getElementById('resultados-busca').innerHTML = '';
+			}
+			
+			let response = JSON.parse(contentProdutos.responseText);
+			document.querySelector('p.title').innerText = response.quantidade + ' Resultados encontrados';
+			response.produtos.forEach(produto => {
+				criarProduto('#resultados-busca', produto.id, produto.nome, produto.valor, produto.imagens[0].caminho);
+			})
+			
+			criarControlador(response.quantidade, 20, 'buscarProdutos()');
 		}
-
-		let response = JSON.parse(contentProdutos.responseText);
-		document.querySelector('p.title').innerText = response.quantidade + ' Resultados encontrados';
-		response.produtos.forEach(produto => {
-			criarProduto('#resultados-busca', produto.id, produto.nome, produto.valor, produto.imagens[0].caminho);
-		})
-
-		criarControlador(response.quantidade, 20, 'buscarProdutos()');
-		selecionaFavoritos();
 	}
 
 	contentProdutos.open('GET', '/ecommerce/php/view/requests/buscaProduto.php' + window.location.search + '&order=' + ordenacao() + '&limite=' + pagina * 20, true);

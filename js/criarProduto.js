@@ -43,4 +43,5 @@ function criarProduto(localConteudo, id, p_nome, p_valor, srcImagem) {
 	// Adiciona o novo produto ao conteúdo
 	novoProduto.appendChild(descricaoProduto);
 	boxConteudo.appendChild(novoProduto);
+	mudaBtnFav(id, false);
 }

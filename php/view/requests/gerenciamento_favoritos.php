@@ -19,6 +19,9 @@
 			$usuario->removerFavorito($prod_id);
 		} else if ($acao == 'visualizar') {
 			echo json_encode($usuario->getFavoritos());
+		} else if ($acao == 'is_fav') {
+			$prod_id = $_GET['prod_id'];
+			echo json_encode($usuario->isFav($prod_id));
 		}
 	}
 ?>

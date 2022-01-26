@@ -37,7 +37,6 @@
 		criarBoxSroll('#box-conteudo', 'Novidades');
 		criarBoxSroll('#box-conteudo', 'Destaques');
 		exibirFiltros();
-		selecionaFavoritos();
 	</script>
 </body>
 </html>

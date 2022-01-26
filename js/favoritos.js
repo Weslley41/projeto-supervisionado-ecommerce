@@ -18,36 +18,40 @@ function favoritar(prod_id, details = false) {
 	fav.send();
 }
 
-function selecionaFavoritos() {
-	let favoritos = new XMLHttpRequest();
-	favoritos.open('GET', '/ecommerce/php/view/requests/gerenciamento_favoritos.php?acao=visualizar', true);
-	favoritos.send();
+function mudaBtnFav(prod_id, details) {
+	let favorito = new XMLHttpRequest();
+	favorito.open('GET', '/ecommerce/php/view/requests/gerenciamento_favoritos.php?acao=is_fav&prod_id=' + prod_id, true);
+	favorito.send();
 
-	favoritos.onreadystatechange = function() {
-		let listaFavoritos = JSON.parse(favoritos.responseText);
-		
-		listaFavoritos.forEach(favorito => {
-			document.getElementById('fav-produto' + favorito).checked = true;
-		});
-	}
-}
+	favorito.onreadystatechange = () => {
+		if (favorito.readyState == favorito.DONE) {
+			let isFav = JSON.parse(favorito.responseText);
 
-function selecionarFavoritoDetalhes(prod_id) {
-	let btnFav = document.getElementById('btn-prod-fav');
-	// let prod_id = window.location.search.split('=')[1];
-	let favoritos = new XMLHttpRequest();
-	favoritos.open('GET', '/ecommerce/php/view/requests/gerenciamento_favoritos.php?acao=visualizar', true);
-	favoritos.send();
+			if (isFav.length) {
+				isFav = isFav[0].disponivel ? true : 'indisponivel';
+			} else {
+				isFav = false;
+			}
 
-	favoritos.onreadystatechange = function() {
-		let listaFavoritos = JSON.parse(favoritos.responseText);
-
-		if (listaFavoritos.includes(prod_id)) {
-			btnFav.value = 'remover';
-			btnFav.innerText = 'Remover dos favoritos';
-		} else {
-			btnFav.value = 'adicionar';
-			btnFav.innerText = 'Adicionar aos favoritos';
+			if (details) {
+				let btnFav = document.getElementById('btn-prod-fav');
+				if (isFav == 'indisponivel') {
+					// Não precisa ser alterado
+				} else if (isFav) {
+					btnFav.value = 'remover';
+					btnFav.innerText = 'Remover dos favoritos';
+				} else {
+					btnFav.value = 'adicionar';
+					btnFav.innerText = 'Adicionar aos favoritos';
+				}
+			} else if (isFav) {
+				let produtos = document.querySelectorAll('#fav-produto' + prod_id);
+				if (produtos.length > 1) {
+					produtos.forEach(produto => produto.checked = true);
+				} else {
+					produtos[0].checked = true;
+				}
+			}
 		}
 	}
 }
@@ -76,16 +80,18 @@ function mostraFavoritos() {
 	favoritos.send();
 
 	favoritos.onreadystatechange = function() {
-		if (document.querySelectorAll('#resultados-busca .produto').length) {
-			document.querySelectorAll('#resultados-busca .produto').forEach(element => element.remove());
+		if (favoritos.readyState == favoritos.DONE) {
+			if (document.querySelectorAll('#resultados-busca .produto').length) {
+				document.querySelectorAll('#resultados-busca .produto').forEach(element => element.remove());
+			}
+			
+			let response = JSON.parse(favoritos.responseText);
+			response.produtos.forEach(produto => {
+				let srcImagem = produto.imagens[0].caminho;
+				criarProduto('#resultados-busca', produto.id, produto.nome, produto.valor, srcImagem);
+			})
+			selecionaFavoritos();
+			criarControlador(response.quantidade, 20, 'mostraFavoritos()');
 		}
-
-		let response = JSON.parse(favoritos.responseText);
-		response.produtos.forEach(produto => {
-			let srcImagem = produto.imagens[0].caminho;
-			criarProduto('#resultados-busca', produto.id, produto.nome, produto.valor, srcImagem);
-		})
-		selecionaFavoritos();
-		criarControlador(response.quantidade, 20, 'mostraFavoritos()');
 	}
 }

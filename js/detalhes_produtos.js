@@ -1,19 +1,21 @@
 function exibirProduto() {
 	conteudo = new XMLHttpRequest();
 	conteudo.onreadystatechange = () =>  {
-		if (document.querySelector('#box-conteudo') != null) {
-			document.querySelector('#box-conteudo').innerHTML = '';
-		} else {
-			let body = document.querySelector('body');
-			let boxConteudo = document.createElement('div');
-			boxConteudo.id = 'box-conteudo';
-			body.appendChild(boxConteudo);
+		if (conteudo.readyState == conteudo.DONE) {
+			if (document.querySelector('#box-conteudo') != null) {
+				document.querySelector('#box-conteudo').innerHTML = '';
+			} else {
+				let body = document.querySelector('body');
+				let boxConteudo = document.createElement('div');
+				boxConteudo.id = 'box-conteudo';
+				body.appendChild(boxConteudo);
+			}
+			
+			let response = JSON.parse(conteudo.responseText);
+			adicionaImagens(response);
+			adicionaDescricao(response);
+			mudaBtnFav(response.produto.id, true);
 		}
-
-		let response = JSON.parse(conteudo.responseText);
-		adicionaImagens(response);
-		adicionaDescricao(response);
-		selecionarFavoritoDetalhes(response.produto.id);
 	}
 
 	conteudo.open('GET', '/ecommerce/php/view/requests/buscaProduto.php?id=' + getID(), true);
@@ -79,15 +81,25 @@ function adicionaDescricao(response) {
 	let botoes = document.createElement('span');
 	botoes.id = 'btns-produto';
 	let btn_cart = document.createElement('button');
-	btn_cart.className = 'btn-padrao';
-	btn_cart.id = 'btn-add-cart';
-	btn_cart.setAttribute('onclick', 'adicionarAoCarrinho(' + response.produto.id + ')')
-	btn_cart.innerText = 'Adicionar ao carrinho';
 	let btn_fav = document.createElement('button');
-	btn_fav.className = 'btn-padrao';
-	btn_fav.innerText = 'Adicionar aos favoritos';
+	disponivel = response.produto.disponivel
+	if (!response.produto.disponivel) {
+		btn_cart.className = 'btn-padrao indisponivel';
+		btn_cart.innerText = 'Produto indisponível';
+		btn_cart.disabled = true;
+		btn_fav.className = 'btn-padrao indisponivel';
+		btn_fav.innerText = 'Produto indisponível';
+		btn_cart.disabled = true;
+	} else {
+		btn_cart.className = 'btn-padrao';
+		btn_cart.innerText = 'Adicionar ao carrinho';
+		btn_cart.setAttribute('onclick', 'adicionarAoCarrinho(' + response.produto.id + ')')
+		btn_fav.className = 'btn-padrao';
+		btn_fav.innerText = 'Adicionar aos favoritos';
+		btn_fav.setAttribute('onclick', 'favoritar(' + response.produto.id + ', true)');
+	}
+	btn_cart.id = 'btn-add-cart';
 	btn_fav.id = 'btn-prod-fav';
-	btn_fav.setAttribute('onclick', 'favoritar(' + response.produto.id + ', true)');
 	botoes.appendChild(btn_cart);
 	botoes.appendChild(btn_fav);
 

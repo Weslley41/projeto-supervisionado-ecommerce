@@ -27,6 +27,7 @@ CREATE TABLE IF NOT EXISTS produtos (
 	id_categoria INT,
 	valor FLOAT,
 	visitas INT DEFAULT 0,
+	disponivel BOOLEAN DEFAULT true,
 	estoque INT,
 	data_cadastro DATETIME
 );

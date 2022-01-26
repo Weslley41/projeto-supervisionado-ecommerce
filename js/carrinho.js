@@ -26,7 +26,9 @@ function removerDoCarrinho(prod_id, changeButton=true) {
 
 function mudaBtnCart(noCarrinho, prod_id) {
 	let btnCart = document.getElementById('btn-add-cart');
-	if (noCarrinho) {
+	if (noCarrinho == 'indisponivel') {
+		// Não precisa ser alterado
+	} else if (noCarrinho) {
 		btnCart.innerText = 'Remover do carrinho';
 		btnCart.setAttribute('onclick', 'removerDoCarrinho(' + prod_id + ')');
 	} else {

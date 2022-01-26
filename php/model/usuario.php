@@ -35,6 +35,17 @@
 			return $favoritos_array;
 		}
 
+		function isFav($prod_id) {
+			$sql = "SELECT prod.id, prod.disponivel AS disponivel
+			FROM fav_user fav JOIN produtos prod ON fav.id_produto = prod.id
+			WHERE fav.id_usuario = ? AND fav.id_produto = ?";
+			$isFav = $this->conexao->prepare($sql);
+			$isFav->execute(array($this->id, $prod_id));
+
+			$resultado = $isFav->fetchAll(PDO::FETCH_ASSOC);
+			return $resultado;
+		}
+
 		function adicionarAoCarrinho($idProduto, $qntd_produto) {
 			[$in_cart, $qntd_atual] = $this->prod_inCart($idProduto);
 
@@ -67,14 +78,17 @@
 		}
 
 		function prod_inCart($idProduto, $only_cart=false) {
-			$sql = "SELECT qntd_produto FROM user_cart WHERE id_usuario = ? AND id_produto = ?";
+			$sql = "SELECT qntd_produto, prod.disponivel AS disponivel
+			FROM user_cart JOIN produtos prod ON prod.id = ?
+			WHERE id_usuario = ? AND id_produto = ?";
 			$prepare_in_cart = $this->conexao->prepare($sql);
-			$prepare_in_cart->execute(array($this->id, $idProduto));
+			$prepare_in_cart->execute(array($idProduto, $this->id, $idProduto));
 
-			$resultado = $prepare_in_cart->fetchAll(PDO::FETCH_ASSOC)[0];
+			$resultado = $prepare_in_cart->fetchAll(PDO::FETCH_ASSOC);
 			if ($resultado) {
-				$in_cart = true;
-				$qntd_atual = $resultado['qntd_produto'];
+				$prod_disponivel = $resultado[0]['disponivel'];
+				$in_cart = $prod_disponivel ? true : 'indisponivel';
+				$qntd_atual = $resultado[0]['qntd_produto'];
 			} else {
 				$in_cart = false;
 				$qntd_atual = 0;

@@ -135,29 +135,16 @@
 		}
 
 		function excluir($id) {
-			$sqlProdutos = "DELETE FROM produtos WHERE id = ?";
-			$sqlImagens = "DELETE FROM imagens WHERE id_produto = ?";
-			$sqlRelacionamento = "DELETE FROM prod_tags WHERE id_produto = ?";
+			$sqlProdutos = "UPDATE produtos SET disponivel = false WHERE id = ?";
 			$sqlCarrinho = "DELETE FROM user_cart WHERE id_produto = ?";
 
 			$prepareProdutos = $this->conexao->prepare($sqlProdutos);
 			$prepareProdutos->bindParam(1, $id);
-			$prepareImagens = $this->conexao->prepare($sqlImagens);
-			$prepareImagens->bindParam(1, $id);
-			$prepareRelacionamento = $this->conexao->prepare($sqlRelacionamento);
-			$prepareRelacionamento->bindParam(1, $id);
 			$prepareCarrinho = $this->conexao->prepare($sqlCarrinho);
 			$prepareCarrinho->bindParam(1, $id);
 
 			$prepareProdutos->execute();
-			$prepareImagens->execute();
-			$prepareRelacionamento->execute();
 			$prepareCarrinho->execute();
-
-			// Exclusão de imagens no disco
-			foreach (glob("../../../assets/produtos/P".$id."_*.jpg") as $filename) {
-				unlink($filename);
-			}
 		}
 	}
 ?>

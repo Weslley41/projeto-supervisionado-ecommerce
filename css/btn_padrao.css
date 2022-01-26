@@ -25,3 +25,9 @@
 	margin-bottom: 10px;
 	cursor: pointer;
 }
+
+.indisponivel {
+	background-color: var(--color-6);
+	opacity: .5;
+	cursor: not-allowed;
+}

@@ -134,7 +134,7 @@
 			}
 		}
 
-		function excluir($id) {
+		function desabilitar($id) {
 			$sqlProdutos = "UPDATE produtos SET disponivel = false WHERE id = ?";
 			$sqlCarrinho = "DELETE FROM user_cart WHERE id_produto = ?";
 
@@ -145,6 +145,13 @@
 
 			$prepareProdutos->execute();
 			$prepareCarrinho->execute();
+		}
+
+		function habilitar($id) {
+			$sql = "UPDATE produtos SET disponivel = true WHERE id = ?";
+			$prepare = $this->conexao->prepare($sql);
+			$prepare->bindParam(1, $id);
+			$prepare->execute();
 		}
 	}
 ?>

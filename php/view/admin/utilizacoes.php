@@ -23,7 +23,7 @@
 	<script src="../../../js/popup.js"></script>
 	<script src="../../../js/utilizacoes.js"></script>
 	<script src="../../../js/editarProduto.js"></script>
-	<script src="../../../js/excluirProduto.js"></script>
+	<script src="../../../js/mudarEstadoProduto.js"></script>
 	<script src="../../../js/controladorPaginas.js"></script>
 </head>
 <body onload="criarTabelaUtilizacoes()">

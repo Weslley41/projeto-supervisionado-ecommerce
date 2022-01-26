@@ -121,7 +121,7 @@
 			return $this->produtosComImagemJSON(10, $produtos);
 		}
 
-		function buscaProdutoTabela($parametros) {
+		function buscaProdutoTabela($parametros, $disponiveis=true) {
 			$param_keys = array_keys($parametros);
 			$lista_ordenacao = array(
 				"postagem1" => "prod.data_cadastro DESC",
@@ -157,9 +157,9 @@
 				} else {
 					$parametros = array("%$busca%", $parametros['limite']);
 					$parametros_qntd = array("%$busca%");
-		
-					$resultado = $this->pesquisa->tabelaProdutoPorNome($parametros, $ordenacao);
-					$qntd_resultados = $this->pesquisa->qntdProdutoPorNome($parametros_qntd);
+
+					$resultado = $this->pesquisa->tabelaProdutoPorNome($parametros, $ordenacao, $disponiveis);
+					$qntd_resultados = $this->pesquisa->qntdProdutoPorNome($parametros_qntd, $disponiveis);
 				}
 			} else if (in_array("categoria", $param_keys)) {
 				$categoria = $parametros['categoria'];
@@ -193,6 +193,29 @@
 				$resultado = $this->pesquisa->tabelaProdutoPorNome($parametros, $ordenacao);
 				$qntd_resultados = $this->pesquisa->qntdProdutoPorNome($parametros_qntd);
 			}
+
+			return $this->produtosToJSON($qntd_resultados, $resultado);
+		}
+
+		function buscaProdutosDesabilitadosTabela($parametros) {
+			$lista_ordenacao = array(
+				"postagem1" => "prod.data_cadastro DESC",
+				"postagem0" => "prod.data_cadastro",
+				"popularidade1" => "prod.visitas DESC",
+				"popularidade0" => "prod.visitas",
+				"valor1" => "prod.valor DESC",
+				"valor0" => "prod.valor",
+				"nome1" => "prod.nome DESC",
+				"nome0" => "prod.nome"
+			);
+			$ordenacao = $lista_ordenacao[$parametros['order']];
+			$busca = $parametros['busca'];
+
+			$parametros = array(false, "%$busca%", $parametros['limite']);
+			$parametros_qntd = array("%$busca%");
+
+			$resultado = $this->pesquisa->tabelaProdutoPorNome($parametros, $ordenacao);
+			$qntd_resultados = $this->pesquisa->qntdProdutoPorNome($parametros_qntd);
 
 			return $this->produtosToJSON($qntd_resultados, $resultado);
 		}

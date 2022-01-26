@@ -148,7 +148,7 @@ tbody tr:hover {
 	text-align: center;
 }
 
-#coluna-editar, #coluna-excluir {
+#coluna-editar, #coluna-excluir, #coluna-habilitar {
 	width: 5%;
 	padding: 5px;
 	text-align: center;

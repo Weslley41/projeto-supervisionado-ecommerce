@@ -5,7 +5,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="shortcut icon" href="/ecommerce/assets/favicon/favicon.ico" type="image/x-icon">
-	<title>Lista de produtos</title>
+	<title>Lista de produtos desabilitados</title>
 	<!-- Fonte -->
 	<link href="https://fonts.googleapis.com/css2?family=Rowdies:wght@300&display=swap" rel="stylesheet">
 	<!-- CSS -->
@@ -28,6 +28,6 @@
 		include_once('../../login/login_admin.php');
 		include_once('../../../html/header_admin.html');
 	?>
-	<script>criar_tabela()</script>
+	<script>criar_tabela(false)</script>
 </body>
 </html>

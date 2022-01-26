@@ -140,9 +140,14 @@
 		}
 
 		// Busca de exibição nas tabelas de administração
-		function tabelaProdutoPorNome($parametros, $order) {
-			$sql = "SELECT DISTINCT prod.id, prod.nome, prod.valor, prod.estoque, prod.data_cadastro, prod.visitas
-			FROM produtos prod WHERE prod.disponivel AND prod.nome LIKE ? ORDER BY $order LIMIT ?, 10";
+		function tabelaProdutoPorNome($parametros, $order, $disponiveis) {
+			if ($disponiveis) {
+				$sql = "SELECT DISTINCT prod.id, prod.nome, prod.valor, prod.estoque, prod.data_cadastro, prod.visitas
+				FROM produtos prod WHERE prod.disponivel AND prod.nome LIKE ? ORDER BY $order LIMIT ?, 10";
+			} else{
+				$sql = "SELECT DISTINCT prod.id, prod.nome, prod.valor, prod.estoque, prod.data_cadastro, prod.visitas
+				FROM produtos prod WHERE NOT prod.disponivel AND prod.nome LIKE ? ORDER BY $order LIMIT ?, 10";
+			}
 
 			$pesquisa = $this->conexao->prepare($sql);
 			$pesquisa->execute($parametros);
@@ -207,8 +212,11 @@
 		}
 
 		// Quantidade de resultados
-		function qntdProdutoPorNome($parametros) {
-			$sql = "SELECT count(DISTINCT(prod.id)) FROM produtos prod WHERE prod.disponivel AND prod.nome LIKE ?";
+		function qntdProdutoPorNome($parametros, $disponiveis=true) {
+			if ($disponiveis)
+				$sql = "SELECT count(DISTINCT(prod.id)) FROM produtos prod WHERE prod.disponivel AND prod.nome LIKE ?";
+			else
+				$sql = "SELECT count(DISTINCT(prod.id)) FROM produtos prod WHERE NOT prod.disponivel AND prod.nome LIKE ?";
 
 			$pesquisa = $this->conexao->prepare($sql);
 			$pesquisa->execute($parametros);

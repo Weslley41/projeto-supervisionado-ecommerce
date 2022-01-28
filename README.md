@@ -9,7 +9,7 @@
 ## Sobre o projeto
 Este projeto é o trabalho de conclusão do curso Técnico em Informática feito no IFPI - Campus Parnaíba. Seus requisitos eram de possibilitar ao administrador publicar, editar e controlar seus produtos, e permitindo aos usuários pesquisar, ver, favoritar e fazer pedido dos mesmos.
 
-Você pode conferir todos os requisitos com mais detalhes [clicando aqui](https://github.com/Weslley41/projeto-supervisionado-ecommerce/blob/master/doc/Documento%20de%20Requisitos.pdf).
+Você pode conferir todos os requisitos com mais detalhes [clicando aqui](doc/).
 
 ## Configuração
 Para utilizar o serviço de login da Google será necessário instalar o [league/oauth2-google](https://packagist.org/packages/league/oauth2-google), para instalar ele você pode usar o [composer](https://getcomposer.org/) e rodar o seguinte comando:

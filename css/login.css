@@ -34,13 +34,15 @@ header {
 	background-color: var(--secondary-color);
 }
 
-#box-login {
+#box-login,
+#box-aviso {
 	width: 25%;
 	height: 60%;
 	box-shadow: 7.5px 5px 5px var(--color-shadow);
 }
 
-#header-login {
+#header-login,
+#header-aviso {
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -51,7 +53,8 @@ header {
 	color: var(--color-1);
 }
 
-#conteudo-login {
+#conteudo-login,
+#conteudo-aviso {
 	display: flex;
 	align-items: center;
 	justify-content: center;

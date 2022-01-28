@@ -1,7 +1,7 @@
 # **Especificação de Requisitos**
 
 ## Sumário
-1. [Visão geral](#visao-geral)
+1. [Visão geral](#visão-geral)
 2. [Requisitos funcionais](#requisitos-funcionais)
 	1. [Gerenciar produtos](#gerenciar-produtos)
 	2. [Gerenciar categorias e tags](#gerenciar-categorias-e-tags)
@@ -14,7 +14,7 @@
 	9. [Acessar carrinho de compras](#acessar-carrinho-de-compras)
 	10. [Confirmar pedido](#confirmar-pedido)
 	11. [Finalizar pedido](#finalizar-pedido)
-	12. [Registrar/Entrar no site](#registrar/entrar-no-site)
+	12. [Registrar/Entrar no site](#registrarentrar-no-site)
 	13. [Mudar tema](#mudar-tema)
 
 ## Visão Geral
@@ -90,8 +90,8 @@ Exibe a lista de pedidos.
 	Exibe os produtos que estejam ligados à categoria e tags selecionadas.
 ### Visualizar produto
 Exibe uma página sobre o produto selecionado.
-![Visualizar produto](screenshots/dark_mode/user_produtos.png#gh-dark-mode-only)
-![Visualizar produto](screenshots/light_mode/user_produtos.png#gh-light-mode-only)
+![Visualizar produto](screenshots/dark_mode/user_produto.png#gh-dark-mode-only)
+![Visualizar produto](screenshots/light_mode/user_produto.png#gh-light-mode-only)
 ### Favoritar produto
 Permite ao usuário favoritar produtos.
 ### Visualizar favoritos

@@ -18,7 +18,7 @@
 		$adm = $adm->fetch(PDO::FETCH_ASSOC);
 		
 		if ($adm['adm'] != 1) {
-			header("Location: /ecommerce/php/view/admin/unauthorized.php");
+			header("Location: /ecommerce/php/view/user/unauthorized.php");
 		}
 	}
 ?>
